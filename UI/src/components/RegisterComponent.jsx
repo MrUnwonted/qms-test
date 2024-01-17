@@ -1,5 +1,8 @@
 import  { useState } from 'react'
 import { registerAPICall } from '../services/AuthService'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const RegisterComponent = () => {
 
@@ -7,20 +10,23 @@ const RegisterComponent = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [role, setRole] = useState('')
     
 
     function handleRegistrationForm(e){
 
         e.preventDefault();
 
-        const register = {name, username, email, password}
+        const register = {name, username, email, password,role}
 
         console.log(register);
 
         registerAPICall(register).then((response) => {
             console.log(response.data);
+            toast.success('Registration successful!');
         }).catch(error => {
             console.error(error);
+            toast.error('Registration failed. Please try again.');
         })
     }
 
@@ -50,7 +56,7 @@ const RegisterComponent = () => {
                                     </input>
                                 </div>
                             </div>
-
+                            <ToastContainer position="bottom-right" autoClose={3000} />
                             <div className='row mb-3'>
                                 <label className='col-md-3 control-label'> Username </label>
                                 <div className='col-md-9'>
@@ -92,6 +98,21 @@ const RegisterComponent = () => {
                                         placeholder='Enter password'
                                         value={password}
                                         onChange={ (e) => setPassword(e.target.value)}
+                                    >
+                                    </input>
+                                </div>
+                            </div>
+
+                            <div className='row mb-3'>
+                                <label className='col-md-3 control-label'> Role </label>
+                                <div className='col-md-9'>
+                                    <input
+                                        type='text'
+                                        name='role'
+                                        className='form-control'
+                                        placeholder='Enter email address'
+                                        value={role}
+                                        onChange={ (e) => setRole(e.target.value)}
                                     >
                                     </input>
                                 </div>
