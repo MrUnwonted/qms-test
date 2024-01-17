@@ -2,10 +2,13 @@
 import { NavLink } from 'react-router-dom'
 import { isUserLoggedIn, logout } from '../services/AuthService'
 import { useNavigate } from 'react-router-dom'
+import { isAdminUser } from '../services/AuthService'
 
 const HeaderComponent = () => {
 
     const isAuth = isUserLoggedIn();
+
+    const isAdmin = isAdminUser();
 
     const navigator = useNavigate();
 
@@ -38,7 +41,7 @@ const HeaderComponent = () => {
                 </div>
                 <ul className='navbar-nav'>
                     {
-                        isAuth &&                         
+                        isAuth &&  isAdmin &&                       
                         <li className='nav-item'>
                         <NavLink to="/register" className="nav-link">Add User</NavLink>
                     </li>
