@@ -1,9 +1,9 @@
-package net.javaguides.todo.controller;
+package com.camerin.QMS.controller;
 
+import com.camerin.QMS.dto.LoginDto;
+import com.camerin.QMS.dto.RegisterDto;
+import com.camerin.QMS.service.AuthService;
 import lombok.AllArgsConstructor;
-import net.javaguides.todo.dto.LoginDto;
-import net.javaguides.todo.dto.RegisterDto;
-import net.javaguides.todo.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

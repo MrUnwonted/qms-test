@@ -1,14 +1,14 @@
-package net.javaguides.todo.security;
+package com.camerin.QMS.security;
 
+import com.camerin.QMS.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import net.javaguides.todo.entity.User;
-import net.javaguides.todo.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import com.camerin.QMS.entity.User;
 
 import java.util.Set;
 import java.util.stream.Collectors;

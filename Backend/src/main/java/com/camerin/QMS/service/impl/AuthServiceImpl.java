@@ -4,7 +4,7 @@ import com.camerin.QMS.dto.LoginDto;
 import com.camerin.QMS.dto.RegisterDto;
 import com.camerin.QMS.entity.Role;
 import com.camerin.QMS.entity.User;
-import com.camerin.QMS.exception.TodoAPIException;
+import com.camerin.QMS.exception.APIException;
 import com.camerin.QMS.repository.RoleRepository;
 import com.camerin.QMS.repository.UserRepository;
 import com.camerin.QMS.service.AuthService;
@@ -34,12 +34,12 @@ public class AuthServiceImpl implements AuthService {
 
         // check username is already exists in database
         if(userRepository.existsByUsername(registerDto.getUsername())){
-            throw new TodoAPIException(HttpStatus.BAD_REQUEST, "Username already exists!");
+            throw new APIException(HttpStatus.BAD_REQUEST, "Username already exists!");
         }
 
         // check email is already exists in database
         if(userRepository.existsByEmail(registerDto.getEmail())){
-            throw new TodoAPIException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
+            throw new APIException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
         }
 
         User user = new User();

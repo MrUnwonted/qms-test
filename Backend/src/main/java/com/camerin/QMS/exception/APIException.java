@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public class TodoAPIException extends RuntimeException{
+public class APIException extends RuntimeException{
     private HttpStatus status;
     private String message;
 }

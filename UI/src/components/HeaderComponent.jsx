@@ -38,9 +38,9 @@ const HeaderComponent = () => {
                 </div>
                 <ul className='navbar-nav'>
                     {
-                        !isAuth &&                         
+                        isAuth &&                         
                         <li className='nav-item'>
-                        <NavLink to="/register" className="nav-link">Register</NavLink>
+                        <NavLink to="/register" className="nav-link">Add User</NavLink>
                     </li>
                     }
 

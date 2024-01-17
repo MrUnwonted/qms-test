@@ -48,8 +48,13 @@ function App() {
               <TodoComponent /> 
               </AuthenticatedRoute>
               }></Route>
+              
                {/* http://localhost:8080/register */}
-              <Route path='/register' element = { <RegisterComponent />}></Route>
+              <Route path='/register' element = {  
+              <AuthenticatedRoute>
+                <RegisterComponent />
+                </AuthenticatedRoute>
+              }></Route>
 
                {/* http://localhost:8080/login */}
                <Route path='/login' element = { <LoginComponent /> }></Route>

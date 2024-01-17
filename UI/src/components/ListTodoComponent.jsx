@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { completeTodo, deleteTodo, getAllTodos, inCompleteTodo } from '../services/TodoService'
 import { useNavigate } from 'react-router-dom'
 
