@@ -2,6 +2,7 @@ package com.camerin.QMS.service.impl;
 
 import com.camerin.QMS.dto.LoginDto;
 import com.camerin.QMS.dto.RegisterDto;
+import com.camerin.QMS.dto.RoleDto;
 import com.camerin.QMS.entity.Role;
 import com.camerin.QMS.entity.User;
 import com.camerin.QMS.exception.APIException;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -60,7 +62,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(LoginDto loginDto) {
+    public RoleDto login(LoginDto loginDto) {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsernameOrEmail(),
@@ -69,6 +71,24 @@ public class AuthServiceImpl implements AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "User logged-in successfully!.";
+        Optional<User> userOptional = userRepository.findByUsernameOrEmail(loginDto.getUsernameOrEmail()
+                ,loginDto.getUsernameOrEmail());
+
+        String role = null;
+        if (userOptional.isPresent()){
+            User loggedInUser = userOptional.get();
+            Optional<Role> optionalRole = loggedInUser.getRoles().stream().findFirst();
+
+            if (optionalRole.isPresent()){
+                Role userRole = optionalRole.get();
+                role = userRole.getName();
+            }
+
+        }
+
+        RoleDto roleDto = new RoleDto();
+        roleDto.setRole(role);
+
+        return roleDto;
     }
 }

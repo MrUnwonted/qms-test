@@ -2,6 +2,7 @@ package com.camerin.QMS.controller;
 
 import com.camerin.QMS.dto.LoginDto;
 import com.camerin.QMS.dto.RegisterDto;
+import com.camerin.QMS.dto.RoleDto;
 import com.camerin.QMS.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,8 @@ public class AuthController {
 
     // Build Login REST API
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
-        String response = authService.login(loginDto);
+    public ResponseEntity<RoleDto> login(@RequestBody LoginDto loginDto){
+        RoleDto response = authService.login(loginDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
