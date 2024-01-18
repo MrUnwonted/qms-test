@@ -16,13 +16,17 @@ public class ScreenMaster extends BaseDomain{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SCREENID")
+    @Column(name = "SCREEN_ID")
     private Long id;
 
-    @Column(name = "SCREENNAME")
+    @Column(name = "SCREEN_NAME")
     private String screenName;
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "COUNTER_ID") // This is the foreign key column
+    private CounterMaster counter;
 
 }

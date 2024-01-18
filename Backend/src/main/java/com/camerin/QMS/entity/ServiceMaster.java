@@ -16,10 +16,10 @@ public class ServiceMaster extends BaseDomain{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SERVICEID")
+    @Column(name = "SERVICE_ID")
     private Long id;
 
-    @Column(name = "SERVICENAME")
+    @Column(name = "SERVICE_NAME")
     private String serviceName;
 
     @Column(name = "DESCRIPTION")

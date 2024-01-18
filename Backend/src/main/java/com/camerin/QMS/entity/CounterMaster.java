@@ -16,13 +16,17 @@ public class CounterMaster extends BaseDomain{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COUNTERID")
+    @Column(name = "COUNTER_ID")
     private Long id;
 
-    @Column(name = "COUNTERNAME")
+    @Column(name = "COUNTER_NAME")
     private String counterName;
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "LOCATION_ID") // This is the foreign key column
+    private LocationMaster location;
 
 }
