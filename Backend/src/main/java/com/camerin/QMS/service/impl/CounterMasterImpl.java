@@ -25,6 +25,7 @@ public class CounterMasterImpl implements CounterMasterService {
     private ModelMapper modelMapper;
     
 
+    @Override
     public CounterDto addCounter(CounterDto counterDto) {
 
         // Convert CounterDto into LocationMaster Jpa entity
@@ -40,18 +41,18 @@ public class CounterMasterImpl implements CounterMasterService {
                 counterMaster.setLocation(locationMaster);
             } else {
                 // Handle the case where the specified ServiceMaster is not found
-                throw new ResourceNotFoundException("ServiceMaster not found with id: " + locationId);
+                throw new ResourceNotFoundException("LocationMaster not found with id: " + locationId);
             }
         } else {
             // Handle the case where serviceId is null
-            throw new IllegalArgumentException("ServiceId cannot be null");
+            throw new IllegalArgumentException("LocationId cannot be null");
         }
 
         // Save the LocationMaster Jpa entity to the database
-        CounterMaster savedLocation = counterMasterService.save(counterMaster);
+        CounterMaster savedCounter = counterMasterService.save(counterMaster);
 
         // Convert saved LocationMaster Jpa entity object into CounterDto object
-        return modelMapper.map(savedLocation, CounterDto.class);
+        return modelMapper.map(savedCounter, CounterDto.class);
     }
 
 

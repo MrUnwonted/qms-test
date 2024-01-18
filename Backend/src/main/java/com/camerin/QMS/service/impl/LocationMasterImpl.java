@@ -25,6 +25,7 @@ public class LocationMasterImpl implements LocationMasterService {
     private ServiceMasterRepository serviceMasterRepository;
     private ModelMapper modelMapper;
 
+    @Override
     public LocationDto addLocation(LocationDto locationDto) {
 
         // Convert LocationDto into LocationMaster Jpa entity
