@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("api/locationmaster")
+@RequestMapping("api/countermaster")
 @AllArgsConstructor
 public class CounterMasterController {
 
