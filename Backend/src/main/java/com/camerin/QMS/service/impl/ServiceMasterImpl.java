@@ -25,7 +25,7 @@ public class ServiceMasterImpl implements ServiceMasterService {
 
         // convert ServiceDto into ServiceMaster Jpa entity
         ServiceMaster serviceMaster = modelMapper.map(serviceDto, ServiceMaster.class);
-
+        serviceMaster.setIsActive(Boolean.TRUE);
         // ServiceMaster Jpa entity
         ServiceMaster savedService = serviceMasterRepository.save(serviceMaster);
 
@@ -52,5 +52,43 @@ public class ServiceMasterImpl implements ServiceMasterService {
 
         return allService.stream().map((service) -> modelMapper.map(service, ServiceDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ServiceDto updateService(ServiceDto serviceDto, Long id) {
+
+        ServiceMaster service = serviceMasterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Service not found with id : " + id));
+        service.setServiceName(serviceDto.getServiceName());
+        service.setDescription(serviceDto.getDescription());
+        service.setCreatedDatetime(serviceDto.getCreatedDatetime());
+        service.setCreatedBy(serviceDto.getCreatedBy());
+        service.setUpdatedBy(serviceDto.getUpdatedBy());
+        service.setUpdatedDatetime(serviceDto.getUpdatedDatetime());
+        service.setVersionNo(serviceDto.getVersionNo());
+        service.setIsActive(serviceDto.getIsActive());
+
+
+        ServiceMaster updatedService = serviceMasterRepository.save(service);
+
+        return modelMapper.map(updatedService, ServiceDto.class);
+    }
+
+    @Override
+    public void deleteService(Long id) {
+        ServiceMaster todo = serviceMasterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Service not found with id : " + id));
+
+        serviceMasterRepository.deleteById(id);
+    }
+
+    @Override
+    public ServiceDto setIsActive(Long id) {
+        ServiceMaster service = serviceMasterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Service not found with id : " + id));
+
+        service.setIsActive(Boolean.FALSE);
+
+        return modelMapper.map(service, ServiceDto.class);
     }
 }

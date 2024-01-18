@@ -43,4 +43,28 @@ public class ServiceMasterController {
         //return new ResponseEntity<>(todos, HttpStatus.OK);
         return ResponseEntity.ok(services);
     }
+
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("{id}")
+    public ResponseEntity<ServiceDto> updateService(@RequestBody ServiceDto serviceDto, @PathVariable("id") Long serviceId){
+        ServiceDto updateService = masterService.updateService(serviceDto, serviceId);
+        return ResponseEntity.ok(updateService);
+    }
+
+
+//    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteService(@PathVariable("id") Long serviceId){
+        masterService.deleteService(serviceId);
+        return ResponseEntity.ok("Service deleted successfully!.");
+    }
+
+
+//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PatchMapping("{id}/isactive")
+    public ResponseEntity<ServiceDto> setIsActive(@PathVariable("id") Long serviceId){
+        ServiceDto updatedservice = masterService.setIsActive(serviceId);
+        return ResponseEntity.ok(updatedservice);
+    }
+
 }

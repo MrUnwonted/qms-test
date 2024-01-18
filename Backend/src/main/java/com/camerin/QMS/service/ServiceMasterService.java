@@ -11,4 +11,10 @@ public interface ServiceMasterService {
 
  List<ServiceDto> getAllService();
 
+ ServiceDto updateService(ServiceDto serviceDto, Long id);
+
+ void deleteService(Long id);
+
+ ServiceDto setIsActive(Long id);
+
 }
