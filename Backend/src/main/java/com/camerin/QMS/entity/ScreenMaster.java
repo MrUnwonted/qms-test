@@ -26,7 +26,7 @@ public class ScreenMaster extends BaseDomain{
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "COUNTER_ID") // This is the foreign key column
+    @JoinColumn(name = "COUNTERMASTER") // This is the foreign key column
     private CounterMaster counter;
 
 }

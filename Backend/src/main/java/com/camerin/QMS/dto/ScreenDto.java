@@ -17,7 +17,7 @@ public class ScreenDto {
     private Long id;
     private String screenName;
     private String description;
-    private CounterMaster counter;
+    private Long counterId;
     private Date createdDatetime;
     private Long createdBy;
     private Long updatedBy;

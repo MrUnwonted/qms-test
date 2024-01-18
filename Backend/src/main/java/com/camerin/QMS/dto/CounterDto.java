@@ -17,7 +17,7 @@ public class CounterDto {
     private Long id;
     private String counterName;
     private String description;
-    private LocationMaster location;
+    private Long locationId;
     private Date createdDatetime;
     private Long createdBy;
     private Long updatedBy;

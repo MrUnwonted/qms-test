@@ -26,7 +26,7 @@ public class CounterMaster extends BaseDomain{
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "LOCATION_ID") // This is the foreign key column
+    @JoinColumn(name = "LOCATIONMASTER") // This is the foreign key column
     private LocationMaster location;
 
 }
