@@ -10,14 +10,14 @@ const RegisterComponent = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [role, setRole] = useState('')
+    // const [role, setRole] = useState('')
     
 
     function handleRegistrationForm(e){
 
         e.preventDefault();
 
-        const register = {name, username, email, password,role}
+        const register = {name, username, email, password}
 
         console.log(register);
 
@@ -103,7 +103,7 @@ const RegisterComponent = () => {
                                 </div>
                             </div>
 
-                            <div className='row mb-3'>
+                            {/* <div className='row mb-3'>
                                 <label className='col-md-3 control-label'> Role </label>
                                 <div className='col-md-9'>
                                     <input
@@ -116,7 +116,7 @@ const RegisterComponent = () => {
                                     >
                                     </input>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className='form-group mb-3'>
                                 <button className='btn btn-primary' onClick={ (e) => handleRegistrationForm(e)}>Submit</button>
