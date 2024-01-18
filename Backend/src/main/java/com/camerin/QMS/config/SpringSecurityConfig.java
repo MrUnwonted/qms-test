@@ -41,6 +41,7 @@ public class SpringSecurityConfig {
                     authorize.requestMatchers("/api/servicemaster/**").permitAll();
                     authorize.requestMatchers("/api/locationmaster/**").permitAll();
                     authorize.requestMatchers("/api/countermaster/**").permitAll();
+                    authorize.requestMatchers("/api/screenmaster/**").permitAll();
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());

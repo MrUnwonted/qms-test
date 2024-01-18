@@ -1,6 +1,5 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './App.css'
-import ListTodoComponent from './components/ListTodoComponent'
 import HeaderComponent from './components/HeaderComponent'
 import FooterComponent from './components/FooterComponent'
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
@@ -8,6 +7,7 @@ import TodoComponent from './components/TodoComponent'
 import RegisterComponent from './components/RegisterComponent'
 import LoginComponent from './components/LoginComponent'
 import { isUserLoggedIn } from './services/AuthService'
+import ServiceMasterComponent from './components/ServiceMasterComponent'
 
 function App() {
 
@@ -33,7 +33,7 @@ function App() {
                {/* http://localhost:8080/todos */}
               <Route path='/todos' element = { 
               <AuthenticatedRoute>
-                <ListTodoComponent />
+                <ServiceMasterComponent />
               </AuthenticatedRoute> 
               }></Route>
               {/* http://localhost:8080/add-todo */}
