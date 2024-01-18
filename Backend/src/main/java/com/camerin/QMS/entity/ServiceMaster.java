@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "SERVICEMASTER")
-public class ServiceMaster {
+public class ServiceMaster extends BaseDomain{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

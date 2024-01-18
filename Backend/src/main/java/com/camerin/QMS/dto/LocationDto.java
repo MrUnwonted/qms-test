@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -17,4 +19,10 @@ public class LocationDto {
     private String description;
     private Integer userNo;
     private ServiceMaster service;
+    private Date createdDatetime;
+    private Long createdBy;
+    private Long updatedBy;
+    private Date updatedDatetime;
+    private int versionNo;
+    private Boolean isActive;
 }

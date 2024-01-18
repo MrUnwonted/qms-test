@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -16,4 +18,10 @@ public class CounterDto {
     private String counterName;
     private String description;
     private LocationMaster location;
+    private Date createdDatetime;
+    private Long createdBy;
+    private Long updatedBy;
+    private Date updatedDatetime;
+    private int versionNo;
+    private Boolean isActive;
 }

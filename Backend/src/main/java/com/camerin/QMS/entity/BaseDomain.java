@@ -38,9 +38,6 @@ public class BaseDomain implements Serializable {
     @Version
     private int versionNo;
 
-    @Column(name="INTRABRANCHID")
-    private Long intrabranchid;
-
     @Column(name = "ISACTIVE")
     private Boolean isActive;
 
