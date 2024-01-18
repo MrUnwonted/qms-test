@@ -40,7 +40,7 @@ public class ServiceMasterImpl implements ServiceMasterService {
     public ServiceDto getService(Long id) {
 
         ServiceMaster serviceMaster =  serviceMasterRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Service not found with id:" + id));
 
         return modelMapper.map(serviceMaster, ServiceDto.class);
     }
@@ -76,7 +76,7 @@ public class ServiceMasterImpl implements ServiceMasterService {
 
     @Override
     public void deleteService(Long id) {
-        ServiceMaster todo = serviceMasterRepository.findById(id)
+        serviceMasterRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found with id : " + id));
 
         serviceMasterRepository.deleteById(id);

@@ -29,7 +29,7 @@ public class LocationMaster extends BaseDomain{
     private Integer userNo;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "SERVICE_ID") // This is the foreign key column
+    @JoinColumn(name = "SERVICEMASTER") // This is the foreign key column
     private ServiceMaster service;
 
 }

@@ -30,7 +30,7 @@ public class ServiceMasterController {
 
 //    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("{id}")
-    public ResponseEntity<ServiceDto> getTodo(@PathVariable("id") Long serviceId){
+    public ResponseEntity<ServiceDto> getService(@PathVariable("id") Long serviceId){
         ServiceDto serviceDto = masterService.getService(serviceId);
         return new ResponseEntity<>(serviceDto, HttpStatus.OK);
     }

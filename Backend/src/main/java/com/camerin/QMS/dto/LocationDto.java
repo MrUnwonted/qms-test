@@ -18,7 +18,7 @@ public class LocationDto {
     private String locationName;
     private String description;
     private Integer userNo;
-    private ServiceMaster service;
+    private Long serviceId;
     private Date createdDatetime;
     private Long createdBy;
     private Long updatedBy;
