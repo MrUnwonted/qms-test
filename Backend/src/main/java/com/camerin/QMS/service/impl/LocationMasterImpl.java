@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.management.ServiceNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,24 +24,6 @@ public class LocationMasterImpl implements LocationMasterService {
     private LocationMasterRepository locationMasterRepository;
     private ServiceMasterRepository serviceMasterRepository;
     private ModelMapper modelMapper;
-
-//    @Override
-//    public LocationDto addLocation(LocationDto locationDto) {
-//
-//        // convert LocationDto into LocationMaster Jpa entity
-//        LocationMaster locationMaster = modelMapper.map(locationDto, LocationMaster.class);
-//        locationMaster.setIsActive(Boolean.TRUE);
-//        Optional<ServiceMaster> master = serviceMaster.findById(locationDto.getService());
-//        master.ifPresent(locationMaster.setService(master));
-//
-////        locationMaster.getService().setId(LocationDto.getService());
-//        // LocationMaster Jpa entity
-//        LocationMaster savedLocation = locationMasterRepository.save(locationMaster);
-//
-//        // Convert saved LocationMaster Jpa entity object into LocationDto object
-//
-//        return modelMapper.map(savedLocation, LocationDto.class);
-//    }
 
     public LocationDto addLocation(LocationDto locationDto) {
 
@@ -107,9 +89,9 @@ public class LocationMasterImpl implements LocationMasterService {
         location.setIsActive(LocationDto.getIsActive());
 
 
-        LocationMaster updatedService = locationMasterRepository.save(location);
+        LocationMaster updatedLocation = locationMasterRepository.save(location);
 
-        return modelMapper.map(updatedService, LocationDto.class);
+        return modelMapper.map(updatedLocation, LocationDto.class);
     }
 
     @Override
