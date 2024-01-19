@@ -4,11 +4,9 @@ import { getAllService, deleteService, setIsActive } from '../services/ServiceMa
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../services/AuthService'
 
-
 const ServiceMasterComponent = () => {
 
     const [service, setService] = useState([])
-   
 
     const navigate = useNavigate()
 
@@ -37,7 +35,7 @@ const ServiceMasterComponent = () => {
         navigate(`/update-service/${id}`)
     }
 
-    function removeService(id){
+    function removeService(id) {
         deleteService(id).then((response) => {
             listServices();
         }).catch(error => {
@@ -54,7 +52,11 @@ const ServiceMasterComponent = () => {
     }
 
     function createLocation(id) {
-        navigate(`/update-service/${id}`)
+        setIsActive(id).then((response) => {
+            listServices()
+        }).catch(error => {
+            console.error(error)
+        })
     }
 
     const formatDate = (dateTimeString) => {
@@ -67,7 +69,6 @@ const ServiceMasterComponent = () => {
         return date.toLocaleDateString(undefined, options);
       };
       
-     
 
     // function markInCompleteTodo(id){
     //     inCompleteTodo(id).then((response) => {
@@ -121,7 +122,6 @@ const ServiceMasterComponent = () => {
                 </table>
             </div>
 
-           
         </div>
     )
 }

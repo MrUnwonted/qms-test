@@ -28,5 +28,5 @@ export const updateService = (id, service) => axios.put(BASE_REST_API_URL + '/' 
 
 export const deleteService = (id) => axios.delete(BASE_REST_API_URL + '/' + id)
 
-export const setIsActive = (id) => axios.patch(BASE_REST_API_URL + '/' + id + '/isactive')
+export const setIsActive = (id) => axios.patch(BASE_REST_API_URL + '/' + id + '/toggle')
 

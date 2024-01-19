@@ -61,12 +61,8 @@ public class ServiceMasterImpl implements ServiceMasterService {
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found with id : " + id));
         service.setServiceName(serviceDto.getServiceName());
         service.setDescription(serviceDto.getDescription());
-        service.setCreatedDatetime(serviceDto.getCreatedDatetime());
-        service.setCreatedBy(serviceDto.getCreatedBy());
         service.setUpdatedBy(serviceDto.getUpdatedBy());
         service.setUpdatedDatetime(serviceDto.getUpdatedDatetime());
-        service.setVersionNo(serviceDto.getVersionNo());
-        service.setIsActive(serviceDto.getIsActive());
 
 
         ServiceMaster updatedService = serviceMasterRepository.save(service);
