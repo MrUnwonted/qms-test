@@ -29,41 +29,24 @@ function Routers() {
     <>
     
     <Routes>
-          {/* http://localhost:8080 */}
-          {/* if(isAdmin){
-            <Route path='/admin' element={<LoginComponent />}></Route>
-          }else{
-            <Route path='/user' element={<LoginComponent />}></Route> 
-          } */}
+         
          {isAdmin && <Route path='/admin' element={<Navigate to="/admin" />} />}
           {!isAdmin && <Route path='/user' element={<Navigate to="/user" />} />}
-          {/* http://localhost:8080/todos */}
-          <Route path='/services' element={
-            <AuthenticatedRoute>
-              <ServiceMasterComponent />
-            </AuthenticatedRoute>
-          }></Route>
-          {/* http://localhost:8080/api/servicemaster */}
-          <Route path='/add-service' element={
-            <AuthenticatedRoute>
-              <ServiceComponent />
-            </AuthenticatedRoute>
-          }></Route>
-          {/* http://localhost:8080/update-todo/1 */}
-          <Route path='/update-service/:id' element={
-            <AuthenticatedRoute>
-              <ServiceComponent />
-            </AuthenticatedRoute>
-          }></Route>
+          
+          <Route path='/services' element={<AuthenticatedRoute>
+              <ServiceMasterComponent /></AuthenticatedRoute>}></Route>
+         
+          <Route path='/add-service' element={<AuthenticatedRoute>
+              <ServiceComponent /></AuthenticatedRoute>}></Route>
+         
+          <Route path='/update-service/:id' element={<AuthenticatedRoute>
+              <ServiceComponent /></AuthenticatedRoute>}></Route>
 
-          {/* http://localhost:8080/register */}
-          <Route path='/register' element={
-            <AuthenticatedRoute>
-              <RegisterComponent />
-            </AuthenticatedRoute>
-          }></Route>
+         
+          <Route path='/register' element={<AuthenticatedRoute>
+              <RegisterComponent /></AuthenticatedRoute>}></Route>
 
-          {/* http://localhost:8080/login */}
+          
           <Route path='/login' element={<LoginComponent />}></Route>
 
         </Routes>

@@ -30,7 +30,7 @@ const ServiceComponent = () => {
         if (id) {
 
             updateService(id, service).then(() => {
-                navigate('/todos')
+                navigate('/services')
             }).catch(error => {
                 console.error(error);
             })
@@ -38,7 +38,7 @@ const ServiceComponent = () => {
         } else {
             addService(service).then((response) => {
                 console.log(response.data)
-                navigate('/todos')
+                navigate('/services')
             }).catch(error => {
                 console.error(error);
             })

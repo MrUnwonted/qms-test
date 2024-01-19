@@ -1,6 +1,5 @@
 // import { useState } from 'react'
 import './App.css'
-import { BrowserRouter } from 'react-router-dom';
 import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
 import Routers from '../src/Routes/Routers';
@@ -29,11 +28,12 @@ function App() {
   return (
     <>
       
-      <BrowserRouter>
+      
         <HeaderComponent />
         <Routers />
+        
         <FooterComponent />
-      </BrowserRouter>
+      
       
     </>
   )

@@ -111,7 +111,7 @@ const ServiceMasterComponent = () => {
                                         <button className='btn btn-info' onClick={() => updateService(service.id)}>Update</button>
                                         <button className='btn btn-danger' onClick={() => removeService(service.id)} style={{ marginLeft: "10px" }} >Delete</button>
                                         <button className='btn btn-success' onClick={() => makeActiveOrInactive(service.id)} style={{ marginLeft: "10px" }} >Active</button>
-                                        <button className='btn btn-warning' onClick={() => createLocation(service.id)} style={{ marginLeft: "10px" }} >Create</button>
+                                        <button className='btn btn-warning' onClick={() => createLocation(service.id)} style={{ marginLeft: "10px" }} >View</button>
                                     </td>
                                 </tr>
                             )
