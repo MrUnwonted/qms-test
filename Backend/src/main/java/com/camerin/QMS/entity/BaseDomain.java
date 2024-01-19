@@ -67,4 +67,8 @@ public class BaseDomain implements Serializable {
                 updatedDatetime.getTime());
     }
 
+    public boolean isActive(){
+        return isActive;
+    }
+
 }

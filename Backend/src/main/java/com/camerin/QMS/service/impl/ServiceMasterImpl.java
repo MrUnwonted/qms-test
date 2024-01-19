@@ -83,12 +83,15 @@ public class ServiceMasterImpl implements ServiceMasterService {
     }
 
     @Override
-    public ServiceDto setIsActive(Long id) {
-        ServiceMaster service = serviceMasterRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Service not found with id : " + id));
+    public ServiceDto setIsActive(Long serviceId) {
+        ServiceMaster dto = serviceMasterRepository.findById(serviceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Service not found with id :" + serviceId));
 
-        service.setIsActive(Boolean.FALSE);
+        dto.setIsActive(!dto.isActive());
+        serviceMasterRepository.save(dto);
 
-        return modelMapper.map(service, ServiceDto.class);
+        return modelMapper.map(dto, ServiceDto.class);
     }
+
+
 }

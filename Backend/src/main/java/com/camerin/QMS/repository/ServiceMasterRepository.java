@@ -2,6 +2,8 @@ package com.camerin.QMS.repository;
 
 import com.camerin.QMS.entity.ServiceMaster;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

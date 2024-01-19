@@ -61,10 +61,10 @@ public class ServiceMasterController {
 
 
 //    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @PatchMapping("{id}/isactive")
-    public ResponseEntity<ServiceDto> setIsActive(@PathVariable("id") Long serviceId){
-        ServiceDto updatedservice = masterService.setIsActive(serviceId);
-        return ResponseEntity.ok(updatedservice);
-    }
+@PatchMapping("/{serviceId}/toggle")
+public ResponseEntity<ServiceDto> setIsActive(@PathVariable Long serviceId) {
+    ServiceDto toggledService = masterService.setIsActive(serviceId);
+    return ResponseEntity.ok(toggledService);
+}
 
 }

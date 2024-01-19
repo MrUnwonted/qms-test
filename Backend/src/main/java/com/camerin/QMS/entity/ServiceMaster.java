@@ -25,4 +25,6 @@ public class ServiceMaster extends BaseDomain{
     @Column(name = "DESCRIPTION")
     private String description;
 
+
+
 }

@@ -15,6 +15,6 @@ public interface ServiceMasterService {
 
  void deleteService(Long id);
 
- ServiceDto setIsActive(Long id);
+ServiceDto setIsActive(Long serviceId);
 
 }
