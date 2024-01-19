@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-
-import { getAllService, deleteService, setIsActive } from '../../services/ServiceMaster'
+import { getAllLocation, setIsActive } from '../../services/LocationMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 
-const ServiceMasterComponent = () => {
+const LocationMasterComponent = () => {
 
-    const [service, setService] = useState([])
+    const [location, setLocation] = useState([])
 
     const navigate = useNavigate()
 
@@ -14,49 +13,45 @@ const ServiceMasterComponent = () => {
 
 
     useEffect(() => {
-        listServices();
+        listLocations();
     }, [])
 
-    function listServices() {
-        getAllService().then((response) => {
-            setService(response.data);
+    function listLocations() {
+        getAllLocation().then((response) => {
+            setLocation(response.data);
         }).catch(error => {
             console.error(error);
         })
     }
 
-    function addNewService() {
+    function addNewLocation() {
         navigate('/add-location')
 
     }
 
-    function updateService(id) {
+    function updatelocation(id) {
         console.log(id)
         navigate(`/update-location/${id}`)
     }
 
-    function removeService(id) {
-        deleteService(id).then(() => {
-            listServices();
+    // function removelocation(id) {
+    //     deleteLocation(id).then(() => {
+    //         listLocations();
+    //     }).catch(error => {
+    //         console.error(error)
+    //     })
+    // }
+
+    function makeActiveOrInactive(id) {
+        setIsActive(id).then(() => {
+            listLocations()
         }).catch(error => {
             console.error(error)
         })
     }
 
-    function markCompleteService(id) {
-        setIsActive(id).then(() => {
-            listServices()
-        }).catch(error => {
-            console.error(error)
-        })
-    }
-
-    function createLocation(id) {
-        setIsActive(id).then(() => {
-            listServices()
-        }).catch(error => {
-            console.error(error)
-        })
+    function viewLocation() {
+        navigate('/locations')
     }
 
     const formatDate = (dateTimeString) => {
@@ -80,39 +75,39 @@ const ServiceMasterComponent = () => {
 
     return (
         <div className='container'>
-            <h2 className='text-center'>List of Services</h2>
+            <h2 className='text-center'>List of Locations</h2>
             {
                 isAdmin &&
-                <button className='btn btn-primary mb-2' onClick={addNewService}>Create Service</button>
+                <button className='btn btn-primary mb-2' onClick={addNewLocation}>Create Location</button>
             }
             <div>
                 <table className='table table-bordered table-striped'>
                     <thead>
                         <tr>
-                            <th>Service Id</th>
-                            <th>Service Name</th>
+                            <th>Id</th>
+                            <th>Location Name</th>
                             <th> Description</th>
                             <th> Creation Time</th>
-                            <th> Updation Time</th>
+                            <th> Mapped Table</th>
                             <th>Service Active</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            service.map(service =>
-                                <tr key={service.id}>
-                                    <td>{service.id}</td>
-                                    <td>{service.serviceName}</td>
-                                    <td>{service.description}</td>
-                                    <td>{formatDate(service.createdDatetime)}</td>
-                                    <td>{formatDate(service.updatedDatetime)}</td>
-                                    <td>{service.isActive ? 'YES' : 'NO'}</td>
+                            location.map(location =>
+                                <tr key={location.id}>
+                                    <td>{location.id}</td>
+                                    <td>{location.locationName}</td>
+                                    <td>{location.description}</td>
+                                    <td>{formatDate(location.createdDatetime)}</td>
+                                    <td>{location.serviceId}</td>
+                                    <td>{location.isActive ? 'YES' : 'NO'}</td>
                                     <td>
-                                        <button className='btn btn-info' onClick={() => updateService(service.id)}>Update</button>
-                                        <button className='btn btn-danger' onClick={() => removeService(service.id)} style={{ marginLeft: "10px" }} >Delete</button>
-                                        <button className='btn btn-success' onClick={() => markCompleteService(service.id)} style={{ marginLeft: "10px" }} >Active</button>
-                                        <button className='btn btn-warning' onClick={() => createLocation(service.id)} style={{ marginLeft: "10px" }} >Create</button>
+                                        <button className='btn btn-info' onClick={() => updatelocation(location.id)}>Update</button>
+                                        {/* <button className='btn btn-danger' onClick={() => removelocation(location.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
+                                        <button className='btn btn-success' onClick={() => makeActiveOrInactive(location.id)} style={{ marginLeft: "10px" }} >Active</button>
+                                        <button className='btn btn-warning' onClick={() => viewLocation(location.id)} style={{ marginLeft: "10px" }} >Create</button>
                                     </td>
                                 </tr>
                             )
@@ -126,4 +121,4 @@ const ServiceMasterComponent = () => {
     )
 }
 
-export default ServiceMasterComponent
+export default LocationMasterComponent

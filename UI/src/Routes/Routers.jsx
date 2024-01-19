@@ -4,6 +4,8 @@ import ServiceMasterComponent from '../pages/ServiceMaster/ServiceMasterComponen
 import { isAdminUser, isUserLoggedIn } from '../services/AuthService';
 import RegisterComponent from '../components/RegisterComponent';
 import LoginComponent from '../components/LoginComponent';
+import LocationMasterComponent from '../pages/LocationMaster/LocationMasterComponent';
+import LocationComponent from '../pages/LocationMaster/LocationComponent';
 
 function Routers() {
 
@@ -35,11 +37,31 @@ function Routers() {
           
           <Route path='/services' element={<AuthenticatedRoute>
               <ServiceMasterComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/locations' element={<AuthenticatedRoute>
+              <LocationMasterComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/counters' element={<AuthenticatedRoute>
+              <ServiceMasterComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/screens' element={<AuthenticatedRoute>
+              <ServiceMasterComponent /></AuthenticatedRoute>}></Route>
+
          
           <Route path='/add-service' element={<AuthenticatedRoute>
               <ServiceComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/add-location' element={<AuthenticatedRoute>
+              <LocationComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/add-counter' element={<AuthenticatedRoute>
+              <ServiceComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/add-screen' element={<AuthenticatedRoute>
+              <ServiceComponent /></AuthenticatedRoute>}></Route>
+
          
           <Route path='/update-service/:id' element={<AuthenticatedRoute>
+              <ServiceComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/update-location/:id' element={<AuthenticatedRoute>
+              <LocationComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/update-counter/:id' element={<AuthenticatedRoute>
+              <ServiceComponent /></AuthenticatedRoute>}></Route>
+          <Route path='/update-screen/:id' element={<AuthenticatedRoute>
               <ServiceComponent /></AuthenticatedRoute>}></Route>
 
          

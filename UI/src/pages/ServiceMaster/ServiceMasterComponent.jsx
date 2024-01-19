@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { getAllService, deleteService, setIsActive } from '../../services/ServiceMaster'
+import { getAllService, setIsActive } from '../../services/ServiceMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 
@@ -37,13 +37,13 @@ const ServiceMasterComponent = () => {
         navigate(`/update-service/${id}`)
     }
 
-    function removeService(id){
-        deleteService(id).then(() => {
-            listServices();
-        }).catch(error => {
-            console.error(error)
-        })
-    }
+    // function removeService(id){
+    //     deleteService(id).then(() => {
+    //         listServices();
+    //     }).catch(error => {
+    //         console.error(error)
+    //     })
+    // }
 
     function makeActiveOrInactive(id) {
         setIsActive(id).then(() => {
@@ -53,8 +53,9 @@ const ServiceMasterComponent = () => {
         })
     }
 
-    function createLocation(id) {
-        navigate(`/update-service/${id}`)
+   
+    function viewLocation() {
+        navigate('/locations')
     }
 
     const formatDate = (dateTimeString) => {
@@ -88,7 +89,7 @@ const ServiceMasterComponent = () => {
                 <table className='table table-bordered table-striped'>
                     <thead>
                         <tr>
-                            <th>Service Id</th>
+                            <th> Id</th>
                             <th>Service Name</th>
                             <th> Description</th>
                             <th> Creation Time</th>
@@ -109,9 +110,9 @@ const ServiceMasterComponent = () => {
                                     <td>{service.isActive ? 'YES' : 'NO'}</td>
                                     <td>
                                         <button className='btn btn-info' onClick={() => updateService(service.id)}>Update</button>
-                                        <button className='btn btn-danger' onClick={() => removeService(service.id)} style={{ marginLeft: "10px" }} >Delete</button>
+                                        {/* <button className='btn btn-danger' onClick={() => removeService(service.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
                                         <button className='btn btn-success' onClick={() => makeActiveOrInactive(service.id)} style={{ marginLeft: "10px" }} >Active</button>
-                                        <button className='btn btn-warning' onClick={() => createLocation(service.id)} style={{ marginLeft: "10px" }} >View</button>
+                                        <button className='btn btn-warning' onClick={() => viewLocation(service.id)} style={{ marginLeft: "10px" }} >View</button>
                                     </td>
                                 </tr>
                             )
