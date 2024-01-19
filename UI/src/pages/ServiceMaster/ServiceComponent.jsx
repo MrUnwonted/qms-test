@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { getService, updateService, addService } from '../services/ServiceMaster'
+import { getService, updateService, addService } from '../../services/ServiceMaster'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const ServiceComponent = () => {

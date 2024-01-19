@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { getAllService, deleteService, setIsActive } from '../services/ServiceMaster'
+import { getAllService, deleteService, setIsActive } from '../../services/ServiceMaster'
 import { useNavigate } from 'react-router-dom'
-import { isAdminUser } from '../services/AuthService'
+import { isAdminUser } from '../../services/AuthService'
 
 
 const ServiceMasterComponent = () => {

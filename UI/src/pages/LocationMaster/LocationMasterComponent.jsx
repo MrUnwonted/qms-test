@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { getAllService, deleteService, setIsActive } from '../services/ServiceMaster'
+import { getAllService, deleteService, setIsActive } from '../../services/ServiceMaster'
 import { useNavigate } from 'react-router-dom'
-import { isAdminUser } from '../services/AuthService'
+import { isAdminUser } from '../../services/AuthService'
 
 const ServiceMasterComponent = () => {
 
@@ -26,17 +26,17 @@ const ServiceMasterComponent = () => {
     }
 
     function addNewService() {
-        navigate('/add-services')
+        navigate('/add-location')
 
     }
 
     function updateService(id) {
         console.log(id)
-        navigate(`/update-service/${id}`)
+        navigate(`/update-location/${id}`)
     }
 
     function removeService(id) {
-        deleteService(id).then((response) => {
+        deleteService(id).then(() => {
             listServices();
         }).catch(error => {
             console.error(error)
@@ -44,7 +44,7 @@ const ServiceMasterComponent = () => {
     }
 
     function markCompleteService(id) {
-        setIsActive(id).then((response) => {
+        setIsActive(id).then(() => {
             listServices()
         }).catch(error => {
             console.error(error)
@@ -52,7 +52,7 @@ const ServiceMasterComponent = () => {
     }
 
     function createLocation(id) {
-        setIsActive(id).then((response) => {
+        setIsActive(id).then(() => {
             listServices()
         }).catch(error => {
             console.error(error)
