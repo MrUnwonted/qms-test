@@ -44,7 +44,7 @@ const HeaderComponent = () => {
                         {
                             isAuth &&                         
                             <li className='nav-item'>
-                            <NavLink to="/couneters" className="nav-link">Counters</NavLink>
+                            <NavLink to="/counters" className="nav-link">Counters</NavLink>
                         </li>
                         }
                         {

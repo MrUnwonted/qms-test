@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { getAllLocation, setIsActive } from '../../services/LocationMaster'
+import { getAllCounter, setIsActive } from '../../services/CounterMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 
-const LocationMasterComponent = () => {
+const CounterMasterComponent = () => {
 
-    const [location, setLocation] = useState([])
+    const [counter, setCounter] = useState([])
 
     const navigate = useNavigate()
 
@@ -13,25 +13,25 @@ const LocationMasterComponent = () => {
 
 
     useEffect(() => {
-        listLocations();
+        listCounters();
     }, [])
 
-    function listLocations() {
-        getAllLocation().then((response) => {
-            setLocation(response.data);
+    function listCounters() {
+        getAllCounter().then((response) => {
+            setCounter(response.data);
         }).catch(error => {
             console.error(error);
         })
     }
 
-    function addNewLocation() {
-        navigate('/add-location')
+    function addNewCounter() {
+        navigate('/add-counter')
 
     }
 
-    function updatelocation(id) {
+    function updateCounter(id) {
         console.log(id)
-        navigate(`/update-location/${id}`)
+        navigate(`/update-counter/${id}`)
     }
 
     // function removelocation(id) {
@@ -44,14 +44,14 @@ const LocationMasterComponent = () => {
 
     function makeActiveOrInactive(id) {
         setIsActive(id).then(() => {
-            listLocations()
+            listCounters()
         }).catch(error => {
             console.error(error)
         })
     }
 
-    function viewLocation() {
-        navigate('/locations')
+    function viewCounters() {
+        navigate('/counters')
     }
 
     const formatDate = (dateTimeString) => {
@@ -75,39 +75,39 @@ const LocationMasterComponent = () => {
 
     return (
         <div className='container'>
-            <h2 className='text-center'>List of Locations</h2>
+            <h2 className='text-center'>List of Counters</h2>
             {
                 isAdmin &&
-                <button className='btn btn-primary mb-2' onClick={addNewLocation}>Create Location</button>
+                <button className='btn btn-primary mb-2' onClick={addNewCounter}>Create Counter</button>
             }
             <div>
                 <table className='table table-bordered table-striped'>
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Location Name</th>
+                            <th>Counter Name</th>
                             <th> Description</th>
                             <th> Creation Time</th>
                             <th> Mapped Table</th>
-                            <th>Location Active</th>
+                            <th>Counter Active</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            location.map(location =>
-                                <tr key={location.id}>
-                                    <td>{location.id}</td>
-                                    <td>{location.locationName}</td>
-                                    <td>{location.description}</td>
-                                    <td>{formatDate(location.createdDatetime)}</td>
-                                    <td>{location.serviceId}</td>
-                                    <td>{location.isActive ? 'YES' : 'NO'}</td>
+                            counter.map(counter =>
+                                <tr key={counter.id}>
+                                    <td>{counter.id}</td>
+                                    <td>{counter.counterName}</td>
+                                    <td>{counter.description}</td>
+                                    <td>{formatDate(counter.createdDatetime)}</td>
+                                    <td>{counter.serviceId}</td>
+                                    <td>{counter.isActive ? 'YES' : 'NO'}</td>
                                     <td>
-                                        <button className='btn btn-info' onClick={() => updatelocation(location.id)}>Update</button>
-                                        {/* <button className='btn btn-danger' onClick={() => removelocation(location.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
-                                        <button className='btn btn-success' onClick={() => makeActiveOrInactive(location.id)} style={{ marginLeft: "10px" }} >Active</button>
-                                        <button className='btn btn-warning' onClick={() => viewLocation(location.id)} style={{ marginLeft: "10px" }} >Create</button>
+                                        <button className='btn btn-info' onClick={() => updateCounter(counter.id)}>Update</button>
+                                        {/* <button className='btn btn-danger' onClick={() => removecounter(counter.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
+                                        <button className='btn btn-success' onClick={() => makeActiveOrInactive(counter.id)} style={{ marginLeft: "10px" }} >Active</button>
+                                        <button className='btn btn-warning' onClick={() => viewCounters(counter.id)} style={{ marginLeft: "10px" }} >Create</button>
                                     </td>
                                 </tr>
                             )
@@ -121,4 +121,4 @@ const LocationMasterComponent = () => {
     )
 }
 
-export default LocationMasterComponent
+export default CounterMasterComponent
