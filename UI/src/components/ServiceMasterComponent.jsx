@@ -28,7 +28,7 @@ const ServiceMasterComponent = () => {
     }
 
     function addNewService() {
-        navigate('/add-todo')
+        navigate('/add-service')
 
     }
 
@@ -38,15 +38,15 @@ const ServiceMasterComponent = () => {
     }
 
     function removeService(id){
-        deleteService(id).then((response) => {
+        deleteService(id).then(() => {
             listServices();
         }).catch(error => {
             console.error(error)
         })
     }
 
-    function markCompleteService(id) {
-        setIsActive(id).then((response) => {
+    function makeActiveOrInactive(id) {
+        setIsActive(id).then(() => {
             listServices()
         }).catch(error => {
             console.error(error)
@@ -110,7 +110,7 @@ const ServiceMasterComponent = () => {
                                     <td>
                                         <button className='btn btn-info' onClick={() => updateService(service.id)}>Update</button>
                                         <button className='btn btn-danger' onClick={() => removeService(service.id)} style={{ marginLeft: "10px" }} >Delete</button>
-                                        <button className='btn btn-success' onClick={() => markCompleteService(service.id)} style={{ marginLeft: "10px" }} >Active</button>
+                                        <button className='btn btn-success' onClick={() => makeActiveOrInactive(service.id)} style={{ marginLeft: "10px" }} >Active</button>
                                         <button className='btn btn-warning' onClick={() => createLocation(service.id)} style={{ marginLeft: "10px" }} >Create</button>
                                     </td>
                                 </tr>

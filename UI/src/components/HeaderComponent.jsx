@@ -32,7 +32,7 @@ const HeaderComponent = () => {
                         {
                             isAuth &&                         
                             <li className='nav-item'>
-                            <NavLink to="/todos" className="nav-link">Services</NavLink>
+                            <NavLink to="/services" className="nav-link">Services</NavLink>
                         </li>
                         }
 

@@ -26,7 +26,7 @@ const ServiceMasterComponent = () => {
     }
 
     function addNewService() {
-        navigate('/add-todo')
+        navigate('/add-services')
 
     }
 

@@ -22,7 +22,7 @@ const LoginComponent = () => {
             const role = response.data.role;
 
             saveLoggedInUser(username,role);
-            navigator("/todos")
+            navigator("/services")
 
             window.location.reload(false);
         }).catch(error => {

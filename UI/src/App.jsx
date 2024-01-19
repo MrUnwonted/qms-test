@@ -43,13 +43,13 @@ function App() {
          {isAdmin && <Route path='/admin' element={<Navigate to="/admin" />} />}
           {!isAdmin && <Route path='/user' element={<Navigate to="/user" />} />}
           {/* http://localhost:8080/todos */}
-          <Route path='/todos' element={
+          <Route path='/services' element={
             <AuthenticatedRoute>
               <ServiceMasterComponent />
             </AuthenticatedRoute>
           }></Route>
           {/* http://localhost:8080/api/servicemaster */}
-          <Route path='/add-todo' element={
+          <Route path='/add-service' element={
             <AuthenticatedRoute>
               <ServiceComponent />
             </AuthenticatedRoute>
