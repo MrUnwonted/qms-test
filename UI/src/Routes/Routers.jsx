@@ -8,6 +8,8 @@ import LocationMasterComponent from '../pages/LocationMaster/LocationMasterCompo
 import LocationComponent from '../pages/LocationMaster/LocationComponent';
 import CounterMasterComponent from '../pages/CounterMaster/CounterMasterComponent'
 import CounterComponent from '../pages/CounterMaster/CounterComponent'
+import ScreenComponent from '../pages/ScreenMaster/ScreenComponent';
+import ScreenMasterComponent from '../pages/ScreenMaster/ScreenMasterComponent';
 
 function Routers() {
 
@@ -44,7 +46,7 @@ function Routers() {
           <Route path='/counters' element={<AuthenticatedRoute>
               <CounterMasterComponent /></AuthenticatedRoute>}></Route>
           <Route path='/screens' element={<AuthenticatedRoute>
-              <ServiceMasterComponent /></AuthenticatedRoute>}></Route>
+              <ScreenMasterComponent /></AuthenticatedRoute>}></Route>
 
          
           <Route path='/add-service' element={<AuthenticatedRoute>
@@ -54,7 +56,7 @@ function Routers() {
           <Route path='/add-counter' element={<AuthenticatedRoute>
               <CounterComponent /></AuthenticatedRoute>}></Route>
           <Route path='/add-screen' element={<AuthenticatedRoute>
-              <ServiceComponent /></AuthenticatedRoute>}></Route>
+              <ScreenComponent /></AuthenticatedRoute>}></Route>
 
          
           <Route path='/update-service/:id' element={<AuthenticatedRoute>
@@ -64,7 +66,7 @@ function Routers() {
           <Route path='/update-counter/:id' element={<AuthenticatedRoute>
               <CounterComponent /></AuthenticatedRoute>}></Route>
           <Route path='/update-screen/:id' element={<AuthenticatedRoute>
-              <ServiceComponent /></AuthenticatedRoute>}></Route>
+              <ScreenComponent /></AuthenticatedRoute>}></Route>
 
          
           <Route path='/register' element={<AuthenticatedRoute>
