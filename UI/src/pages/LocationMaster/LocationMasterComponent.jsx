@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react'
 import { getAllLocation, setIsActive } from '../../services/LocationMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
+import { getService } from '../../services/ServiceMaster'
 
 const LocationMasterComponent = () => {
 
     const [location, setLocation] = useState([])
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate()
 
@@ -16,13 +20,33 @@ const LocationMasterComponent = () => {
         listLocations();
     }, [])
 
-    function listLocations() {
-        getAllLocation().then((response) => {
-            setLocation(response.data);
-        }).catch(error => {
+    // function listLocations() {
+    //     getAllLocation().then((response) => {
+    //         setLocation(response.data);
+    //     }).catch(error => {
+    //         console.error(error);
+    //     })
+    // }
+
+    async function listLocations() {
+        try {
+            setLoading(true);
+            const response = await getAllLocation();
+            const locationsWithServiceNames = await Promise.all(
+                response.data.map(async (location) => {
+                    const serviceName = await fetchServiceName(location.serviceId);
+                    return { ...location, serviceName };
+                })
+            );
+            setLocation(locationsWithServiceNames);
+        } catch (error) {
             console.error(error);
-        })
+            setError('Error fetching locations'); // Set an appropriate error message
+        } finally {
+            setLoading(false);
+        }
     }
+
 
     function addNewLocation() {
         navigate('/add-location')
@@ -56,14 +80,23 @@ const LocationMasterComponent = () => {
 
     const formatDate = (dateTimeString) => {
         if (!dateTimeString) {
-          return ''; // Handle null or undefined values
+            return ''; // Handle null or undefined values
         }
-      
+
         const date = new Date(dateTimeString);
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString(undefined, options);
-      };
-      
+    };
+
+    const fetchServiceName = async (serviceId) => {
+        try {
+            const response = await getService(serviceId);
+            return response.data.serviceName;
+        } catch (error) {
+            console.error(error);
+            return 'N/A';
+        }
+    };
 
     // function markInCompleteTodo(id){
     //     inCompleteTodo(id).then((response) => {
@@ -72,6 +105,14 @@ const LocationMasterComponent = () => {
     //         console.error(error)
     //     })
     // }
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
     return (
         <div className='container'>
@@ -101,7 +142,7 @@ const LocationMasterComponent = () => {
                                     <td>{location.locationName}</td>
                                     <td>{location.description}</td>
                                     <td>{formatDate(location.createdDatetime)}</td>
-                                    <td>{location.serviceId}</td>
+                                    <td>{location.serviceName}</td>
                                     <td>{location.isActive ? 'YES' : 'NO'}</td>
                                     <td>
                                         <button className='btn btn-info' onClick={() => updatelocation(location.id)}>Update</button>
