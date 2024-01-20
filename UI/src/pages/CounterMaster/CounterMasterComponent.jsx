@@ -34,9 +34,9 @@ const CounterMasterComponent = () => {
         navigate(`/update-counter/${id}`)
     }
 
-    // function removelocation(id) {
-    //     deleteLocation(id).then(() => {
-    //         listLocations();
+    // function removeCounter(id) {
+    //     deleteCounter(id).then(() => {
+    //         listCouneters();
     //     }).catch(error => {
     //         console.error(error)
     //     })
@@ -101,11 +101,11 @@ const CounterMasterComponent = () => {
                                     <td>{counter.counterName}</td>
                                     <td>{counter.description}</td>
                                     <td>{formatDate(counter.createdDatetime)}</td>
-                                    <td>{counter.serviceId}</td>
+                                    <td>{counter.locationId}</td>
                                     <td>{counter.isActive ? 'YES' : 'NO'}</td>
                                     <td>
                                         <button className='btn btn-info' onClick={() => updateCounter(counter.id)}>Update</button>
-                                        {/* <button className='btn btn-danger' onClick={() => removecounter(counter.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
+                                        {/* <button className='btn btn-danger' onClick={() => removeCounter(counter.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
                                         <button className='btn btn-success' onClick={() => makeActiveOrInactive(counter.id)} style={{ marginLeft: "10px" }} >Active</button>
                                         <button className='btn btn-warning' onClick={() => viewCounters(counter.id)} style={{ marginLeft: "10px" }} >Create</button>
                                     </td>

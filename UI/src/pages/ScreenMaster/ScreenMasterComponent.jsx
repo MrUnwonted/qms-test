@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllScreen, setIsActive } from '../../services/ScreenMaster'
+import { deleteScreen, getAllScreen, setIsActive } from '../../services/ScreenMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 
@@ -34,13 +34,13 @@ const ScreenMasterComponent = () => {
         navigate(`/update-screen/${id}`)
     }
 
-    // function removelocation(id) {
-    //     deleteLocation(id).then(() => {
-    //         listLocations();
-    //     }).catch(error => {
-    //         console.error(error)
-    //     })
-    // }
+    //  function removeScreen(id){
+    //         deleteScreen(id).then(() => {
+    //             listScreens();
+    //         }).catch(error => {
+    //             console.error(error)
+    //         })
+    //     }
 
     function makeActiveOrInactive(id) {
         setIsActive(id).then(() => {
@@ -101,11 +101,11 @@ const ScreenMasterComponent = () => {
                                     <td>{screen.screenName}</td>
                                     <td>{screen.description}</td>
                                     <td>{formatDate(screen.createdDatetime)}</td>
-                                    <td>{screen.serviceId}</td>
+                                    <td>{screen.counterId}</td>
                                     <td>{screen.isActive ? 'YES' : 'NO'}</td>
                                     <td>
                                         <button className='btn btn-info' onClick={() => updateScreen(screen.id)}>Update</button>
-                                        {/* <button className='btn btn-danger' onClick={() => removescreen(screen.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
+                                        {/* <button className='btn btn-danger' onClick={() => removeScreen(screen.id)} style={{ marginLeft: "10px" }} >Delete</button> */}
                                         <button className='btn btn-success' onClick={() => makeActiveOrInactive(screen.id)} style={{ marginLeft: "10px" }} >Active</button>
                                         <button className='btn btn-warning' onClick={() => viewsScreens(screen.id)} style={{ marginLeft: "10px" }} >Create</button>
                                     </td>

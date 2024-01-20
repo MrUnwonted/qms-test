@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import PropTypes from 'prop-types';
 import ServiceComponent from '../pages/ServiceMaster/ServiceComponent'
 import ServiceMasterComponent from '../pages/ServiceMaster/ServiceMasterComponent'
 import { isAdminUser, isUserLoggedIn } from '../services/AuthService';
@@ -32,6 +33,11 @@ function Routers() {
     }
 
   }
+
+  AuthenticatedRoute.propTypes = {
+    children: PropTypes.node, // Add this line for 'children' prop
+  };
+  
 
   return (
     <>
@@ -81,6 +87,7 @@ function Routers() {
     
     </>
   )
+  
 }
 
 export default Routers

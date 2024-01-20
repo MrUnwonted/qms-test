@@ -1,80 +1,80 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { getCounter, updateCounter, addCounter } from '../../services/CounterMaster'
-import { getAllLocation } from '../../services/LocationMaster'
+import { getScreen, updateScreen, addScreen } from '../../services/ScreenMaster'
+import { getAllCounter } from '../../services/CounterMaster'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const ScreenComponent = () => {
 
-    const [counterName, setCounterName] = useState('')
+    const [screenName, setScreenName] = useState('')
     const [description, setDescription] = useState('')
-    const [location, setLocation] = useState(null);  // Initialize service state as null
-    const [selectedLocationID, setSelectedLocationId] = useState('');
-    const [locationOptions, setLocationOptions] = useState([])
+    const [counter, setCounter] = useState(null);  // Initialize service state as null
+    const [selectedCounterID, setSelectedCounterID] = useState('');
+    const [counterOptions, setCounterOptions] = useState([])
 
     const navigate = useNavigate()
     const { id } = useParams()
 
     useEffect(() => {
-        listLocations();
+        listCounters();
     }, [])
 
-    function listLocations() {
-        getAllLocation().then((response) => {
-            setLocationOptions(response.data);
+    function listCounters() {
+        getAllCounter().then((response) => {
+            setCounterOptions(response.data);
         }).catch(error => {
             console.error(error);
         })
     }
 
  
-    const handleLocationChange = (e) => {
+    const handleCounterChange = (e) => {
         const selectedId = e.target.value;
         console.log('Selected ID:', selectedId);
 
-        setSelectedLocationId(selectedId);
+        setSelectedCounterID(selectedId);
 
         // Ensure that the structure of locationOptions is correct
-        const selectedLocation = locationOptions.find(s => s.id === Number(selectedId));
+        const selectedCounter = counterOptions.find(s => s.id === Number(selectedId));
 
-        console.log('Selected Location:', selectedLocation);
-        setLocation(selectedLocation);
+        console.log('Selected Counter:', selectedCounter);
+        setCounter(selectedCounter);
     };
 
 
 
 
-    function saveOrUpdateCounter(e) {
+    function saveOrUpdateScreen(e) {
         e.preventDefault();
 
         const currentDate = new Date();
 
-        console.log('Selected Location:', location); 
+        console.log('Selected Counter:', counter); 
 
-        const counter = {
-            counterName,
-            locationId: location ? location.id : null,
+        const screen = {
+            screenName,
+            counterId: counter ? counter.id : null,
             description,
             createdDatetime: currentDate.toISOString(),
             updatedDatetime: id ? currentDate.toISOString() : null,
             createdBy: 2,
         };
 
-        console.log('Counter:', counter); // Add this log
+        console.log('Counter:', screen); // Add this log
 
         if (id) {
-            updateCounter(id, counter)
+            updateScreen(id, screen)
                 .then(() => {
-                    navigate('/counters');
+                    navigate('/screens');
                 })
                 .catch(error => {
                     console.error(error);
                 });
         } else {
-            addCounter(counter)
+            addScreen(screen)
                 .then(response => {
                     console.log(response.data);
-                    navigate('/counters');
+                    navigate('/screens');
                 })
                 .catch(error => {
                     console.error(error);
@@ -85,17 +85,17 @@ const ScreenComponent = () => {
 
     function pageTitle() {
         if (id) {
-            return <h2 className='text-center'>Update Counter</h2>
+            return <h2 className='text-center'>Update Screen</h2>
         } else {
-            return <h2 className='text-center'>Add Counter</h2>
+            return <h2 className='text-center'>Add Screen</h2>
         }
     }
 
     useEffect(() => {
 
         if (id) {
-            getCounter(id).then((response) => {
-                setCounterName(response.data.counterName)
+            getScreen(id).then((response) => {
+                setScreenName(response.data.screenName)
                 setDescription(response.data.description)
                 // setCompleted(response.data.completed)
             }).catch(error => {
@@ -114,24 +114,24 @@ const ScreenComponent = () => {
                     <div className='card-body'>
                         <form>
                             <div className='form-group mb-2'>
-                                <label className='form-label'>Counter Name:</label>
+                                <label className='form-label'>Screen Name:</label>
                                 <input
                                     type='text'
                                     className='form-control'
-                                    placeholder='Enter Counter Name'
+                                    placeholder='Enter Screen Name'
                                     name='name'
-                                    value={counterName}
-                                    onChange={(e) => setCounterName(e.target.value)}
+                                    value={screenName}
+                                    onChange={(e) => setScreenName(e.target.value)}
                                 >
                                 </input>
                             </div>
 
                             <div className='form-group mb-2'>
-                                <label className='form-label'>Counter Description:</label>
+                                <label className='form-label'>Screen Description:</label>
                                 <input
                                     type='text'
                                     className='form-control'
-                                    placeholder='Enter Counter Description'
+                                    placeholder='Enter Screen Description'
                                     name='description'
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
@@ -141,21 +141,21 @@ const ScreenComponent = () => {
 
                         {!id &&
                             <div className='form-group mb-2'>
-                                <label htmlFor="location" className="form-label">Location Mapping:</label>
+                                <label htmlFor="counter" className="form-label">Counter Mapping:</label>
                                 <div className="mb-3">
 
                                     <select
                                         className="form-select"
                                         aria-label="Default select example"
-                                        id="location"
-                                        value={selectedLocationID}
-                                        onChange={handleLocationChange}
+                                        id="counter"
+                                        value={selectedCounterID}
+                                        onChange={handleCounterChange}
                                         required
                                     >
-                                        <option value="" disabled hidden>Select Location</option>
-                                        {locationOptions.map((location) => (
-                                            <option key={location.id} value={location.id}>
-                                                {location.locationName}
+                                        <option value="" disabled hidden>Select Counter</option>
+                                        {counterOptions.map((counter) => (
+                                            <option key={counter.id} value={counter.id}>
+                                                {counter.counterName}
                                             </option>
                                         ))}
                                     </select>
@@ -163,7 +163,7 @@ const ScreenComponent = () => {
                             </div>}
 
 
-                            <button className='btn btn-success' onClick={(e) => saveOrUpdateCounter(e)}>Submit</button>
+                            <button className='btn btn-success' onClick={(e) => saveOrUpdateScreen(e)}>Submit</button>
                         </form>
 
                     </div>
