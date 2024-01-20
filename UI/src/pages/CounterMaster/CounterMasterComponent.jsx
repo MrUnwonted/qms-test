@@ -3,7 +3,7 @@ import { getAllCounter, setIsActive } from '../../services/CounterMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 import { getLocation } from '../../services/LocationMaster'
-import BasicExample from '../../components/BasicExample'
+import Loading from '../../components/Loading'
 
 const CounterMasterComponent = () => {
 
@@ -102,7 +102,7 @@ const CounterMasterComponent = () => {
     if (loading) {
         return (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <BasicExample />
+            <Loading />
           </div>
         );
       }

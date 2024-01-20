@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { getAllService, setIsActive } from '../../services/ServiceMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
-import BasicExample from '../../components/BasicExample'
+import Loading from '../../components/Loading'
 
 
 const ServiceMasterComponent = () => {
@@ -78,7 +78,7 @@ const ServiceMasterComponent = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <BasicExample />
+                <Loading />
             </div>
         );
     }

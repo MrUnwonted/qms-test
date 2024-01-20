@@ -3,7 +3,7 @@ import { getAllLocation, setIsActive } from '../../services/LocationMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 import { getService } from '../../services/ServiceMaster'
-import BasicExample from '../../components/BasicExample'
+import Loading from '../../components/Loading'
 
 const LocationMasterComponent = () => {
 
@@ -110,7 +110,7 @@ const LocationMasterComponent = () => {
     if (loading) {
         return (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <BasicExample />
+            <Loading />
           </div>
         );
       }
