@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react'
 import { getAllCounter, setIsActive } from '../../services/CounterMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
+import { getLocation } from '../../services/LocationMaster'
 
 const CounterMasterComponent = () => {
 
     const [counter, setCounter] = useState([])
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate()
 
@@ -16,13 +20,33 @@ const CounterMasterComponent = () => {
         listCounters();
     }, [])
 
-    function listCounters() {
-        getAllCounter().then((response) => {
-            setCounter(response.data);
-        }).catch(error => {
+    // function listCounters() {
+    //     getAllCounter().then((response) => {
+    //         setCounter(response.data);
+    //     }).catch(error => {
+    //         console.error(error);
+    //     })
+    // }
+
+    async function listCounters() {
+        try {
+            setLoading(true);
+            const response = await getAllCounter();
+            const countersWithLocationNames = await Promise.all(
+                response.data.map(async (counter) => {
+                    const locationName = await fetchLocationName(counter.locationId);
+                    return { ...counter, locationName };
+                })
+            );
+            setCounter(countersWithLocationNames);
+        } catch (error) {
             console.error(error);
-        })
+            setError('Error fetching locations'); // Set an appropriate error message
+        } finally {
+            setLoading(false);
+        }
     }
+
 
     function addNewCounter() {
         navigate('/add-counter')
@@ -64,6 +88,24 @@ const CounterMasterComponent = () => {
         return date.toLocaleDateString(undefined, options);
       };
       
+      const fetchLocationName = async (locationId) => {
+        try {
+            const response = await getLocation(locationId);
+            return response.data.locationName;
+        } catch (error) {
+            console.error(error);
+            return 'N/A';
+        }
+    };
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+
 
     // function markInCompleteTodo(id){
     //     inCompleteTodo(id).then((response) => {
@@ -101,7 +143,7 @@ const CounterMasterComponent = () => {
                                     <td>{counter.counterName}</td>
                                     <td>{counter.description}</td>
                                     <td>{formatDate(counter.createdDatetime)}</td>
-                                    <td>{counter.locationId}</td>
+                                    <td>{counter.locationName}</td>
                                     <td>{counter.isActive ? 'YES' : 'NO'}</td>
                                     <td>
                                         <button className='btn btn-info' onClick={() => updateCounter(counter.id)}>Update</button>
