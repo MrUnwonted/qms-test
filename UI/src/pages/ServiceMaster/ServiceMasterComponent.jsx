@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react'
 import { getAllService, setIsActive } from '../../services/ServiceMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
+import BasicExample from '../../components/BasicExample'
 
 
 const ServiceMasterComponent = () => {
 
     const [service, setService] = useState([])
-   
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate()
 
     const isAdmin = isAdminUser();
@@ -20,13 +22,18 @@ const ServiceMasterComponent = () => {
     }, [])
 
     function listServices() {
+        setLoading(true);
         getAllService().then((response) => {
             setService(response.data);
         }).catch(error => {
             console.error(error);
-        })
+            setError('Error fetching locations');
+        }).finally(
+            setLoading(false)
+        )
     }
 
+    
     function addNewService() {
         navigate('/add-service')
 
@@ -53,22 +60,32 @@ const ServiceMasterComponent = () => {
         })
     }
 
-   
+
     function viewLocation() {
         navigate('/locations')
     }
 
     const formatDate = (dateTimeString) => {
         if (!dateTimeString) {
-          return ''; // Handle null or undefined values
+            return ''; // Handle null or undefined values
         }
-      
+
         const date = new Date(dateTimeString);
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString(undefined, options);
-      };
-      
-     
+    };
+
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <BasicExample />
+            </div>
+        );
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
     // function markInCompleteTodo(id){
     //     inCompleteTodo(id).then((response) => {
@@ -122,7 +139,7 @@ const ServiceMasterComponent = () => {
                 </table>
             </div>
 
-           
+
         </div>
     )
 }

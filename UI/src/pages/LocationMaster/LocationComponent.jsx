@@ -89,6 +89,9 @@ const LocationComponent = () => {
         }
     }
 
+    const goBack = () => {
+        navigate('/locations'); // Go back to the previous page
+    };
 
     function pageTitle() {
         if (id) {
@@ -172,6 +175,9 @@ const LocationComponent = () => {
 
 
                             <button className='btn btn-success' onClick={(e) => saveOrUpdateLocation(e)}>Submit</button>
+                            <button className='btn btn-secondary' onClick={goBack} style={{ marginLeft: '10px' }}>
+                                Go Back
+                            </button>
                         </form>
 
                     </div>

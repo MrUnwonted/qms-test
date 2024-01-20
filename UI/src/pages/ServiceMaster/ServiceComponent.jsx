@@ -11,6 +11,9 @@ const ServiceComponent = () => {
     const navigate = useNavigate()
     const { id } = useParams()
 
+    const goBack = () => {
+        navigate('/services'); // Go back to the previous page
+    };
 
     function saveOrUpdateTodo(e) {
         e.preventDefault()
@@ -104,6 +107,9 @@ const ServiceComponent = () => {
 
 
                             <button className='btn btn-success' onClick={(e) => saveOrUpdateTodo(e)}>Submit</button>
+                            <button className='btn btn-secondary' onClick={goBack} style={{ marginLeft: '10px' }}>
+                                Go Back
+                            </button>
                         </form>
 
                     </div>

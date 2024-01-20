@@ -27,7 +27,7 @@ const LocationComponent = () => {
         })
     }
 
- 
+
     const handleLocationChange = (e) => {
         const selectedId = e.target.value;
         console.log('Selected ID:', selectedId);
@@ -41,7 +41,9 @@ const LocationComponent = () => {
         setLocation(selectedLocation);
     };
 
-
+    const goBack = () => {
+        navigate('/counters'); // Go back to the previous page
+    };
 
 
     function saveOrUpdateCounter(e) {
@@ -49,7 +51,7 @@ const LocationComponent = () => {
 
         const currentDate = new Date();
 
-        console.log('Selected Location:', location); 
+        console.log('Selected Location:', location);
 
         const counter = {
             counterName,
@@ -139,31 +141,34 @@ const LocationComponent = () => {
                                 </input>
                             </div>
 
-                        {!id &&
-                            <div className='form-group mb-2'>
-                                <label htmlFor="location" className="form-label">Location Mapping:</label>
-                                <div className="mb-3">
+                            {!id &&
+                                <div className='form-group mb-2'>
+                                    <label htmlFor="location" className="form-label">Location Mapping:</label>
+                                    <div className="mb-3">
 
-                                    <select
-                                        className="form-select"
-                                        aria-label="Default select example"
-                                        id="location"
-                                        value={selectedLocationID}
-                                        onChange={handleLocationChange}
-                                        required
-                                    >
-                                        <option value="" disabled hidden>Select Location</option>
-                                        {locationOptions.map((location) => (
-                                            <option key={location.id} value={location.id}>
-                                                {location.locationName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>}
+                                        <select
+                                            className="form-select"
+                                            aria-label="Default select example"
+                                            id="location"
+                                            value={selectedLocationID}
+                                            onChange={handleLocationChange}
+                                            required
+                                        >
+                                            <option value="" disabled hidden>Select Location</option>
+                                            {locationOptions.map((location) => (
+                                                <option key={location.id} value={location.id}>
+                                                    {location.locationName}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>}
 
 
                             <button className='btn btn-success' onClick={(e) => saveOrUpdateCounter(e)}>Submit</button>
+                            <button className='btn btn-secondary' onClick={goBack} style={{ marginLeft: '10px' }}>
+                                Go Back
+                            </button>
                         </form>
 
                     </div>
