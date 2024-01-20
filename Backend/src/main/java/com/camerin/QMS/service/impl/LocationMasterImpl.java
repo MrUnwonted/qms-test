@@ -126,10 +126,10 @@ public class LocationMasterImpl implements LocationMasterService {
     }
 
     @Override
-    public LocationDto setIsActive(Long id) throws ResourceNotFoundException {
+    public LocationDto setIsActive(Long locationId) throws ResourceNotFoundException {
         try {
-            LocationMaster location = locationMasterRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
+            LocationMaster location = locationMasterRepository.findById(locationId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + locationId));
 
             location.setIsActive(!location.isActive());
             locationMasterRepository.save(location);

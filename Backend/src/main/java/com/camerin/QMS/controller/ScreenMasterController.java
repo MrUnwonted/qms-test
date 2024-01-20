@@ -81,8 +81,8 @@ public class ScreenMasterController {
 
 
     //    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @PatchMapping("{id}/isactive")
-    public ResponseEntity<ScreenDto> setIsActive(@PathVariable("id") Long screenId) throws ResourceNotFoundException {
+    @PatchMapping("{screenId}/toggle")
+    public ResponseEntity<ScreenDto> setIsActive(@PathVariable Long screenId) throws ResourceNotFoundException {
         try {
             ScreenDto updatedScreen = masterService.setIsActive(screenId);
             return ResponseEntity.ok(updatedScreen);

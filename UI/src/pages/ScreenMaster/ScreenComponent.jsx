@@ -27,6 +27,9 @@ const ScreenComponent = () => {
         })
     }
 
+    const goBack = () => {
+        navigate('/screens'); // Go back to the previous page
+    };
  
     const handleCounterChange = (e) => {
         const selectedId = e.target.value;
@@ -164,6 +167,9 @@ const ScreenComponent = () => {
 
 
                             <button className='btn btn-success' onClick={(e) => saveOrUpdateScreen(e)}>Submit</button>
+                            <button className='btn btn-secondary' onClick={goBack} style={{ marginLeft: '10px' }}>
+                                Go Back
+                            </button>
                         </form>
 
                     </div>

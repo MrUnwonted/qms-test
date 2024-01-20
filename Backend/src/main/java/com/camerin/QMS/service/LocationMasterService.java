@@ -16,6 +16,6 @@ public interface LocationMasterService {
 
  void deleteLocation(Long id);
 
- LocationDto setIsActive(Long id);
+ LocationDto setIsActive(Long locationId);
 
 }

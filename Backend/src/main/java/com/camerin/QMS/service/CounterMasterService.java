@@ -16,6 +16,6 @@ public interface CounterMasterService {
 
  void deleteCounter(Long id);
 
- CounterDto setIsActive(Long id);
+ CounterDto setIsActive(Long counterId);
 
 }

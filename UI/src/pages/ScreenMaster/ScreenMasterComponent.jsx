@@ -3,6 +3,7 @@ import {  getAllScreen, setIsActive } from '../../services/ScreenMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
 import { getCounter } from '../../services/CounterMaster'
+import BasicExample from '../../components/BasicExample'
 
 const ScreenMasterComponent = () => {
 
@@ -107,8 +108,12 @@ const ScreenMasterComponent = () => {
     // }
 
     if (loading) {
-        return <p>Loading...</p>;
-    }
+        return (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <BasicExample />
+          </div>
+        );
+      }
 
     if (error) {
         return <p>Error: {error}</p>;

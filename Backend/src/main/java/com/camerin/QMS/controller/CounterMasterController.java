@@ -79,8 +79,8 @@ public class CounterMasterController {
     }
 
 
-    @PatchMapping("{id}/isactive")
-    public ResponseEntity<CounterDto> setIsActive(@PathVariable("id") Long counterId) throws ResourceNotFoundException {
+    @PatchMapping("{counterId}/toggle")
+    public ResponseEntity<CounterDto> setIsActive(@PathVariable Long counterId) throws ResourceNotFoundException {
         try {
             CounterDto updatedCounter = masterService.setIsActive(counterId);
             return ResponseEntity.ok(updatedCounter);

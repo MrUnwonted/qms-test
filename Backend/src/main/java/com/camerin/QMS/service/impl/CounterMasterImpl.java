@@ -127,11 +127,11 @@ public class CounterMasterImpl implements CounterMasterService {
     }
 
     @Override
-    public CounterDto setIsActive(Long id) throws ResourceNotFoundException {
+    public CounterDto setIsActive(Long counterId) throws ResourceNotFoundException {
         try {
 
-            CounterMaster counter = counterMasterService.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Counter not found with id : " + id));
+            CounterMaster counter = counterMasterService.findById(counterId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Counter not found with id : " + counterId));
 
             counter.setIsActive(!counter.isActive());
             counterMasterService.save(counter);

@@ -127,10 +127,10 @@ public class ScreenMasterImpl implements ScreenMasterService {
     }
 
     @Override
-    public ScreenDto setIsActive(Long id) throws ResourceNotFoundException {
+    public ScreenDto setIsActive(Long screenId) throws ResourceNotFoundException {
         try {
-            ScreenMaster screen = screenMasterRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Screen not found with id : " + id));
+            ScreenMaster screen = screenMasterRepository.findById(screenId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Screen not found with id : " + screenId));
             screen.setIsActive(!screen.isActive());
             screenMasterRepository.save(screen);
 

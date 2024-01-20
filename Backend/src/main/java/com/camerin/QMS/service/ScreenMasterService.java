@@ -16,6 +16,6 @@ public interface ScreenMasterService {
 
  void deleteScreen(Long id);
 
- ScreenDto setIsActive(Long id);
+ ScreenDto setIsActive(Long screenId);
 
 }

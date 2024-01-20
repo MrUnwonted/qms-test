@@ -80,8 +80,8 @@ public class LocationMasterController {
     }
 
 
-    @PatchMapping("{id}/isactive")
-    public ResponseEntity<LocationDto> setIsActive(@PathVariable("id") Long locationId) throws ResourceNotFoundException {
+    @PatchMapping("{locationId}/toggle")
+    public ResponseEntity<LocationDto> setIsActive(@PathVariable Long locationId) throws ResourceNotFoundException {
         try {
             LocationDto updatedLocation = masterService.setIsActive(locationId);
             return ResponseEntity.ok(updatedLocation);
