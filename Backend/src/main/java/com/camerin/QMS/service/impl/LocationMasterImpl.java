@@ -2,6 +2,7 @@ package com.camerin.QMS.service.impl;
 
 
 import com.camerin.QMS.dto.LocationDto;
+import com.camerin.QMS.dto.ServiceDto;
 import com.camerin.QMS.entity.LocationMaster;
 import com.camerin.QMS.entity.ServiceMaster;
 import com.camerin.QMS.exception.ResourceNotFoundException;
@@ -26,90 +27,118 @@ public class LocationMasterImpl implements LocationMasterService {
     private ModelMapper modelMapper;
 
     @Override
-    public LocationDto addLocation(LocationDto locationDto) {
+    public LocationDto addLocation(LocationDto locationDto) throws ResourceNotFoundException {
 
-        // Convert LocationDto into LocationMaster Jpa entity
-        LocationMaster locationMaster = modelMapper.map(locationDto, LocationMaster.class);
-        locationMaster.setIsActive(Boolean.TRUE);
+        try {
+            // Convert LocationDto into LocationMaster Jpa entity
+            LocationMaster locationMaster = modelMapper.map(locationDto, LocationMaster.class);
+            locationMaster.setIsActive(Boolean.TRUE);
 
-        // Retrieve the ServiceMaster entity based on the provided serviceId in the LocationDto
-        Long serviceId = locationDto.getServiceId();
-        if (serviceId != null) {
-            Optional<ServiceMaster> serviceOptional = serviceMasterRepository.findById(serviceId);
-            if (serviceOptional.isPresent()) {
-                ServiceMaster serviceMaster = serviceOptional.get();
-                locationMaster.setService(serviceMaster);
+            // Retrieve the ServiceMaster entity based on the provided serviceId in the LocationDto
+            Long serviceId = locationDto.getServiceId();
+            if (serviceId != null) {
+                Optional<ServiceMaster> serviceOptional = serviceMasterRepository.findById(serviceId);
+                if (serviceOptional.isPresent()) {
+                    ServiceMaster serviceMaster = serviceOptional.get();
+                    locationMaster.setService(serviceMaster);
+                } else {
+                    // Handle the case where the specified ServiceMaster is not found
+                    throw new ResourceNotFoundException("ServiceMaster not found with id: " + serviceId);
+                }
             } else {
-                // Handle the case where the specified ServiceMaster is not found
-                throw new ResourceNotFoundException("ServiceMaster not found with id: " + serviceId);
+                // Handle the case where serviceId is null
+                throw new IllegalArgumentException("ServiceId cannot be null");
             }
-        } else {
-            // Handle the case where serviceId is null
-            throw new IllegalArgumentException("ServiceId cannot be null");
+
+            // Save the LocationMaster Jpa entity to the database
+            LocationMaster savedLocation = locationMasterRepository.save(locationMaster);
+
+            // Convert saved LocationMaster Jpa entity object into LocationDto object
+            return modelMapper.map(savedLocation, LocationDto.class);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Add Location ");
         }
-
-        // Save the LocationMaster Jpa entity to the database
-        LocationMaster savedLocation = locationMasterRepository.save(locationMaster);
-
-        // Convert saved LocationMaster Jpa entity object into LocationDto object
-        return modelMapper.map(savedLocation, LocationDto.class);
     }
 
 
     @Override
-    public LocationDto getLocation(Long id) {
+    public LocationDto getLocation(Long id) throws ResourceNotFoundException {
 
-        LocationMaster locationMaster =  locationMasterRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found with id:" + id));
+        try {
+            LocationMaster locationMaster = locationMasterRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Location not found with id:" + id));
 
-        return modelMapper.map(locationMaster, LocationDto.class);
+            return modelMapper.map(locationMaster, LocationDto.class);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Get Location ");
+        }
     }
 
     @Override
-    public List<LocationDto> getAllLocation() {
+    public List<LocationDto> getAllLocation() throws ResourceNotFoundException {
+        try {
+            List<LocationMaster> allLocation = locationMasterRepository.findAll();
 
-        List<LocationMaster> allLocation = locationMasterRepository.findAll();
-
-        return allLocation.stream().map((Location) -> modelMapper.map(Location, LocationDto.class))
-                .collect(Collectors.toList());
+            return allLocation.stream().map((Location) -> modelMapper.map(Location, LocationDto.class))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Get all Location ");
+        }
     }
 
     @Override
-    public LocationDto updateLocation(LocationDto LocationDto, Long id) {
+    public LocationDto updateLocation(LocationDto LocationDto, Long id) throws ResourceNotFoundException {
 
-        LocationMaster location = locationMasterRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
-        location.setLocationName(LocationDto.getLocationName());
-        location.setDescription(LocationDto.getDescription());
-        location.setUserNo(LocationDto.getUserNo());
+        try {
+
+            LocationMaster location = locationMasterRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
+            location.setLocationName(LocationDto.getLocationName());
+            location.setDescription(LocationDto.getDescription());
+            location.setUserNo(LocationDto.getUserNo());
 //        location.setService(LocationDto.getService());
 
-        location.setUpdatedBy(LocationDto.getUpdatedBy());
-        location.setUpdatedDatetime(LocationDto.getUpdatedDatetime());
-        location.setVersionNo(LocationDto.getVersionNo());
-        location.setIsActive(LocationDto.getIsActive());
+            location.setUpdatedBy(LocationDto.getUpdatedBy());
+            location.setUpdatedDatetime(LocationDto.getUpdatedDatetime());
+            location.setVersionNo(LocationDto.getVersionNo());
+            location.setIsActive(LocationDto.getIsActive());
 
 
-        LocationMaster updatedLocation = locationMasterRepository.save(location);
+            LocationMaster updatedLocation = locationMasterRepository.save(location);
 
-        return modelMapper.map(updatedLocation, LocationDto.class);
+            return modelMapper.map(updatedLocation, LocationDto.class);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Update Location ");
+        }
     }
 
     @Override
-    public void deleteLocation(Long id) {
-       locationMasterRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
+    public void deleteLocation(Long id) throws ResourceNotFoundException {
+        try {
 
-        locationMasterRepository.deleteById(id);
+            locationMasterRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
+
+            locationMasterRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Delete Location ");
+        }
     }
 
     @Override
-    public LocationDto setIsActive(Long id) {
-        LocationMaster location = locationMasterRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
+    public LocationDto setIsActive(Long id) throws ResourceNotFoundException {
+        try {
+            LocationMaster location = locationMasterRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Location not found with id : " + id));
 
-        location.setIsActive(Boolean.FALSE);
+            location.setIsActive(!location.isActive());
+            locationMasterRepository.save(location);
 
-        return modelMapper.map(location, LocationDto.class);
+            return modelMapper.map(location, LocationDto.class);
+
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Toggle ");
+        }
+
     }
 }

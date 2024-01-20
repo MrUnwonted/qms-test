@@ -1,6 +1,7 @@
 package com.camerin.QMS.controller;
 
 import com.camerin.QMS.dto.ServiceDto;
+import com.camerin.QMS.exception.ResourceNotFoundException;
 import com.camerin.QMS.service.ServiceMasterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,53 +19,69 @@ public class ServiceMasterController {
 
     private ServiceMasterService masterService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<ServiceDto> addService(@RequestBody ServiceDto serviceDto){
+    public ResponseEntity<ServiceDto> addService(@RequestBody ServiceDto serviceDto) throws ResourceNotFoundException {
 
-        ServiceDto savedService = masterService.addService(serviceDto);
+        try {
+            ServiceDto savedService = masterService.addService(serviceDto);
+            return new ResponseEntity<>(savedService, HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Add Service ");
+        }
 
-        return new ResponseEntity<>(savedService, HttpStatus.CREATED);
     }
 
-
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("{id}")
-    public ResponseEntity<ServiceDto> getService(@PathVariable("id") Long serviceId){
-        ServiceDto serviceDto = masterService.getService(serviceId);
-        return new ResponseEntity<>(serviceDto, HttpStatus.OK);
+    public ResponseEntity<ServiceDto> getService(@PathVariable("id") Long serviceId) throws ResourceNotFoundException {
+        try {
+            ServiceDto serviceDto = masterService.getService(serviceId);
+            return new ResponseEntity<>(serviceDto, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Get Service ");
+        }
     }
 
-    // Build Get All Todos REST API
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping
-    public ResponseEntity<List<ServiceDto>> getAllService(){
-        List<ServiceDto> services = masterService.getAllService();
-        //return new ResponseEntity<>(todos, HttpStatus.OK);
-        return ResponseEntity.ok(services);
+    public ResponseEntity<List<ServiceDto>> getAllService() throws ResourceNotFoundException {
+        try {
+            List<ServiceDto> services = masterService.getAllService();
+            return ResponseEntity.ok(services);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Get all Service ");
+        }
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+
     @PutMapping("{id}")
-    public ResponseEntity<ServiceDto> updateService(@RequestBody ServiceDto serviceDto, @PathVariable("id") Long serviceId){
-        ServiceDto updateService = masterService.updateService(serviceDto, serviceId);
-        return ResponseEntity.ok(updateService);
+    public ResponseEntity<ServiceDto> updateService(@RequestBody ServiceDto serviceDto, @PathVariable("id") Long serviceId) throws ResourceNotFoundException {
+        try {
+            ServiceDto updateService = masterService.updateService(serviceDto, serviceId);
+            return ResponseEntity.ok(updateService);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Update Service ");
+        }
     }
 
 
-//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteService(@PathVariable("id") Long serviceId){
-        masterService.deleteService(serviceId);
-        return ResponseEntity.ok("Service deleted successfully!.");
+    public ResponseEntity<String> deleteService(@PathVariable("id") Long serviceId) throws ResourceNotFoundException {
+        try {
+            masterService.deleteService(serviceId);
+            return ResponseEntity.ok("Service deleted successfully!.");
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Delete Service ");
+        }
     }
 
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-@PatchMapping("/{serviceId}/toggle")
-public ResponseEntity<ServiceDto> setIsActive(@PathVariable Long serviceId) {
-    ServiceDto toggledService = masterService.setIsActive(serviceId);
-    return ResponseEntity.ok(toggledService);
-}
+    @PatchMapping("/{serviceId}/toggle")
+    public ResponseEntity<ServiceDto> setIsActive(@PathVariable Long serviceId) throws ResourceNotFoundException {
+        try {
+            ServiceDto toggledService = masterService.setIsActive(serviceId);
+            return ResponseEntity.ok(toggledService);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Toggle ");
+        }
+    }
 
 }

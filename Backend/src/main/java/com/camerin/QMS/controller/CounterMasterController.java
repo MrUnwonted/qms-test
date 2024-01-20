@@ -1,6 +1,7 @@
 package com.camerin.QMS.controller;
 
 import com.camerin.QMS.dto.CounterDto;
+import com.camerin.QMS.exception.ResourceNotFoundException;
 import com.camerin.QMS.service.CounterMasterService;
 import com.camerin.QMS.service.LocationMasterService;
 import lombok.AllArgsConstructor;
@@ -18,53 +19,74 @@ public class CounterMasterController {
 
     private CounterMasterService masterService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping
-    public ResponseEntity<CounterDto> addCounter(@RequestBody CounterDto CounterDto){
+    public ResponseEntity<CounterDto> addCounter(@RequestBody CounterDto CounterDto) throws ResourceNotFoundException {
 
-        CounterDto savedCounter = masterService.addCounter(CounterDto);
+        try {
+            CounterDto savedCounter = masterService.addCounter(CounterDto);
+            return new ResponseEntity<>(savedCounter, HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Add Counter ");
+        }
 
-        return new ResponseEntity<>(savedCounter, HttpStatus.CREATED);
     }
 
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("{id}")
-    public ResponseEntity<CounterDto> getCounter(@PathVariable("id") Long counterId){
-        CounterDto counterDto = masterService.getCounter(counterId);
-        return new ResponseEntity<>(counterDto, HttpStatus.OK);
+    public ResponseEntity<CounterDto> getCounter(@PathVariable("id") Long counterId) throws ResourceNotFoundException {
+        try {
+            CounterDto counterDto = masterService.getCounter(counterId);
+            return new ResponseEntity<>(counterDto, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Get Counter ");
+        }
     }
 
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping
-    public ResponseEntity<List<CounterDto>> getAllCounter(){
-        List<CounterDto> counters = masterService.getAllCounter();
-        //return new ResponseEntity<>(todos, HttpStatus.OK);
-        return ResponseEntity.ok(counters);
+    public ResponseEntity<List<CounterDto>> getAllCounter() throws ResourceNotFoundException {
+        try {
+            List<CounterDto> counters = masterService.getAllCounter();
+            return ResponseEntity.ok(counters);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Get all Counter ");
+        }
+
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+
     @PutMapping("{id}")
-    public ResponseEntity<CounterDto> updateCounter(@RequestBody CounterDto counterDto, @PathVariable("id") Long counterId){
-        CounterDto updateCounter = masterService.updateCounter(counterDto, counterId);
-        return ResponseEntity.ok(updateCounter);
+    public ResponseEntity<CounterDto> updateCounter
+            (@RequestBody CounterDto counterDto, @PathVariable("id") Long counterId) throws ResourceNotFoundException {
+        try {
+            CounterDto updateCounter = masterService.updateCounter(counterDto, counterId);
+            return ResponseEntity.ok(updateCounter);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Update Counter ");
+        }
     }
 
 
-//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteCounter(@PathVariable("id") Long counterId){
-        masterService.deleteCounter(counterId);
-        return ResponseEntity.ok("Counter deleted successfully!.");
+    public ResponseEntity<String> deleteCounter(@PathVariable("id") Long counterId) throws ResourceNotFoundException {
+        try {
+            masterService.deleteCounter(counterId);
+            return ResponseEntity.ok("Counter deleted successfully!.");
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Delete Counter ");
+        }
     }
 
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PatchMapping("{id}/isactive")
-    public ResponseEntity<CounterDto> setIsActive(@PathVariable("id") Long counterId){
-        CounterDto updatedCounter = masterService.setIsActive(counterId);
-        return ResponseEntity.ok(updatedCounter);
+    public ResponseEntity<CounterDto> setIsActive(@PathVariable("id") Long counterId) throws ResourceNotFoundException {
+        try {
+            CounterDto updatedCounter = masterService.setIsActive(counterId);
+            return ResponseEntity.ok(updatedCounter);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Could not Toggle ");
+        }
     }
 
 }
