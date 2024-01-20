@@ -10,6 +10,8 @@ import CounterMasterComponent from '../pages/CounterMaster/CounterMasterComponen
 import CounterComponent from '../pages/CounterMaster/CounterComponent'
 import ScreenComponent from '../pages/ScreenMaster/ScreenComponent';
 import ScreenMasterComponent from '../pages/ScreenMaster/ScreenMasterComponent';
+import WelcomeComponent from '../components/WelcomeComponent'
+import WelcomeAdminComponent from '../components/WelcomeAdminComponent';
 
 function Routers() {
 
@@ -36,8 +38,8 @@ function Routers() {
     
     <Routes>
          
-         {isAdmin && <Route path='/admin' element={<Navigate to="/admin" />} />}
-          {!isAdmin && <Route path='/user' element={<Navigate to="/user" />} />}
+         {isAdmin && <Route path='/' element={ <WelcomeAdminComponent/>} />}
+         {!isAdmin  && <Route path='/' element={ <WelcomeComponent/>} />}
           
           <Route path='/services' element={<AuthenticatedRoute>
               <ServiceMasterComponent /></AuthenticatedRoute>}></Route>

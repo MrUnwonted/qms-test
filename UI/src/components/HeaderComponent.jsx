@@ -12,79 +12,82 @@ const HeaderComponent = () => {
 
     const navigator = useNavigate();
 
-    function handleLogout(){
+    function handleLogout() {
         logout();
         navigator('/login')
     }
 
-  return (
-    <div>
-        <header>
-            <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
-                <div>
-                    <a href='http://localhost:3000/' className='navbar-brand'>
-                        Queue Management Application
-                    </a>
-                </div>
-                <div className='collapse navbar-collapse'>
+    return (
+        <div>
+            <header>
+                <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
+                    <div>
+                        <ul className='navbar-nav'>
+                            <li className='nav-item'>
+                                <NavLink to="/" className="nav-link">
+                                    Queue Management Application</NavLink>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className='collapse navbar-collapse'>
+                        <ul className='navbar-nav'>
+
+                            {
+                                isAuth &&
+                                <li className='nav-item'>
+                                    <NavLink to="/services" className="nav-link">Services</NavLink>
+                                </li>
+                            }
+                            {
+                                isAuth &&
+                                <li className='nav-item'>
+                                    <NavLink to="/locations" className="nav-link">Locations</NavLink>
+                                </li>
+                            }
+                            {
+                                isAuth &&
+                                <li className='nav-item'>
+                                    <NavLink to="/counters" className="nav-link">Counters</NavLink>
+                                </li>
+                            }
+                            {
+                                isAuth &&
+                                <li className='nav-item'>
+                                    <NavLink to="/screens" className="nav-link">Screens</NavLink>
+                                </li>
+                            }
+
+                        </ul>
+
+                    </div>
                     <ul className='navbar-nav'>
+                        {
+                            isAuth && isAdmin &&
+                            <li className='nav-item'>
+                                <NavLink to="/register" className="nav-link">Add User</NavLink>
+                            </li>
+                        }
 
                         {
-                            isAuth &&                         
+                            !isAuth &&
                             <li className='nav-item'>
-                            <NavLink to="/services" className="nav-link">Services</NavLink>
-                        </li>
+                                <NavLink to="/login" className="nav-link">Login</NavLink>
+                            </li>
                         }
+
                         {
-                            isAuth &&                         
+                            isAuth &&
                             <li className='nav-item'>
-                            <NavLink to="/locations" className="nav-link">Locations</NavLink>
-                        </li>
-                        }
-                        {
-                            isAuth &&                         
-                            <li className='nav-item'>
-                            <NavLink to="/counters" className="nav-link">Counters</NavLink>
-                        </li>
-                        }
-                        {
-                            isAuth &&                         
-                            <li className='nav-item'>
-                            <NavLink to="/screens" className="nav-link">Screens</NavLink>
-                        </li>
+                                <NavLink to="/login" className="nav-link" onClick={handleLogout}>Logout</NavLink>
+                            </li>
                         }
 
                     </ul>
+                </nav>
+            </header>
 
-                </div>
-                <ul className='navbar-nav'>
-                    {
-                        isAuth &&  isAdmin &&                       
-                        <li className='nav-item'>
-                        <NavLink to="/register" className="nav-link">Add User</NavLink>
-                    </li>
-                    }
-
-                    {
-                        !isAuth &&    
-                        <li className='nav-item'>
-                        <NavLink to="/login" className="nav-link">Login</NavLink>
-                    </li>
-                    }
-
-                    {
-                        isAuth &&    
-                        <li className='nav-item'>
-                        <NavLink to="/login" className="nav-link" onClick={handleLogout}>Logout</NavLink>
-                    </li>
-                    }
-
-                    </ul>
-            </nav>
-        </header>
-
-    </div>
-  )
+        </div>
+    )
 }
 
 export default HeaderComponent

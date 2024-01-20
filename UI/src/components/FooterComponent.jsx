@@ -1,6 +1,9 @@
 
 
 const FooterComponent = () => {
+
+ 
+
   return (
     <div>
         <footer className='footer'>
