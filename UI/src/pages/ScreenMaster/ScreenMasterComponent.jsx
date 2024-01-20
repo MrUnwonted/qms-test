@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
-import { deleteScreen, getAllScreen, setIsActive } from '../../services/ScreenMaster'
+import {  getAllScreen, setIsActive } from '../../services/ScreenMaster'
 import { useNavigate } from 'react-router-dom'
 import { isAdminUser } from '../../services/AuthService'
+import { getCounter } from '../../services/CounterMaster'
 
 const ScreenMasterComponent = () => {
 
     const [screen, setScreen] = useState([])
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate()
 
@@ -16,12 +20,31 @@ const ScreenMasterComponent = () => {
         listScreens();
     }, [])
 
-    function listScreens() {
-        getAllScreen().then((response) => {
-            setScreen(response.data);
-        }).catch(error => {
+    // function listScreens() {
+    //     getAllScreen().then((response) => {
+    //         setScreen(response.data);
+    //     }).catch(error => {
+    //         console.error(error);
+    //     })
+    // }
+
+    async function listScreens() {
+        try {
+            setLoading(true);
+            const response = await getAllScreen();
+            const screensWithCounterNames = await Promise.all(
+                response.data.map(async (screen) => {
+                    const counterName = await fetchCounterName(screen.counterId);
+                    return { ...screen, counterName };
+                })
+            );
+            setScreen(screensWithCounterNames);
+        } catch (error) {
             console.error(error);
-        })
+            setError('Error fetching locations'); // Set an appropriate error message
+        } finally {
+            setLoading(false);
+        }
     }
 
     function addNewScreen() {
@@ -65,6 +88,16 @@ const ScreenMasterComponent = () => {
       };
       
 
+      const fetchCounterName = async (counterId) => {
+        try {
+            const response = await getCounter(counterId);
+            return response.data.counterName;
+        } catch (error) {
+            console.error(error);
+            return 'N/A';
+        }
+    };
+
     // function markInCompleteTodo(id){
     //     inCompleteTodo(id).then((response) => {
     //         listTodos();
@@ -72,6 +105,14 @@ const ScreenMasterComponent = () => {
     //         console.error(error)
     //     })
     // }
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
     return (
         <div className='container'>
@@ -101,7 +142,7 @@ const ScreenMasterComponent = () => {
                                     <td>{screen.screenName}</td>
                                     <td>{screen.description}</td>
                                     <td>{formatDate(screen.createdDatetime)}</td>
-                                    <td>{screen.counterId}</td>
+                                    <td>{screen.counterName}</td>
                                     <td>{screen.isActive ? 'YES' : 'NO'}</td>
                                     <td>
                                         <button className='btn btn-info' onClick={() => updateScreen(screen.id)}>Update</button>
