@@ -28,6 +28,10 @@ public class LocationMaster extends BaseDomain{
     @Column(name = "USERNO")
     private Integer userNo;
 
+    @Column(name = "QUENUMBER")
+    private Long queNumber;
+
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SERVICEMASTER") // This is the foreign key column
     private ServiceMaster service;

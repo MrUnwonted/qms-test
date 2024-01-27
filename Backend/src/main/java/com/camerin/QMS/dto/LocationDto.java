@@ -21,6 +21,7 @@ public class LocationDto {
     private Long serviceId;
     private Date createdDatetime;
     private Long createdBy;
+    private Long queNumber;
     private Long updatedBy;
     private Date updatedDatetime;
     private int versionNo;

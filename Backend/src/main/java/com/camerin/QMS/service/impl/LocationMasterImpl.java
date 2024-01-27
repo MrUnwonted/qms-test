@@ -101,7 +101,7 @@ public class LocationMasterImpl implements LocationMasterService {
             location.setUpdatedBy(LocationDto.getUpdatedBy());
             location.setUpdatedDatetime(LocationDto.getUpdatedDatetime());
             location.setVersionNo(LocationDto.getVersionNo());
-            location.setIsActive(LocationDto.getIsActive());
+            location.setQueNumber(LocationDto.getQueNumber());
 
 
             LocationMaster updatedLocation = locationMasterRepository.save(location);
